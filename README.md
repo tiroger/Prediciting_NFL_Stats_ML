@@ -17,7 +17,7 @@ Can past performance be predictor of future performance? We decided to take a ma
 
 [1]:	https://www.kaggle.com/maxhorowitz/nflplaybyplay2009to2016
 
-[image-1]:	https://fivethirtyeight.com/wp-content/uploads/2019/09/NFL-PREVIEW_Banner.png
+[image-1]:	https://www.shopcrossgates.com/wp-content/uploads/sites/5/2019/09/NFL-stock-photo.jpg
 
 
 Things to consider in predicting peformance:
