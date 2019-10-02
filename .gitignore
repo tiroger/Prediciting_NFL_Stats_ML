@@ -3,7 +3,7 @@
 ~*
 
 # API keys
-api_keys.py;
+api_keys.py
 
 # ML models
 *.pkl
