@@ -2,6 +2,9 @@
 .*
 ~*
 
+# API keys
+api_keys.py;
+
 # ML models
 *.pkl
 
