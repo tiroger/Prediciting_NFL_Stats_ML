@@ -2,6 +2,9 @@
 .*
 ~*
 
+# ML models
+*.pkl
+
 # ignore csv files
 *.csv
 
