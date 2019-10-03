@@ -1,8 +1,7 @@
-# Using Machine Learning to Predict NFL Stat Leaders: Top passers, rushers and receivers
-
+# Using Machine Learning to Predict NFL Plays
 ![][image-1]
 
-##### Which receiver will lead the league in catches in a given season? What about the running back who will have the most rushing yards? Or which quarterback will have the most touchdown passes?
+
 
 Can past performance be predictor of future performance? We decided to take a machine learning approach to answer that question.
 
