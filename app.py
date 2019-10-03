@@ -27,6 +27,11 @@ def show_visualizations():
     """Returns the homepage"""
     return render_template("visualizations.html")
 
+@app.route("/model-build")
+def show_visualizations():
+    """Returns the homepage"""
+    return render_template("mode-build.html")
+
 # @app.route("/data")
 # def show_data():
 #   	return nfl_data
