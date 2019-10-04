@@ -39,6 +39,11 @@ def show_visualizations():
 #       @TODO
 #       #Database stuff
 
+@app.route("/predictions")
+def make_predictions():
+     """Returns prediction page"""
+     return render_template("predictions.html")
+
 
 
 if __name__ == "__main__":
