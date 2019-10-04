@@ -16,35 +16,25 @@ def index():
     """Returns the homepage"""
     return render_template("index.html")
 
-
 @app.route("/contact-info")
 def show_contact():
-    """Returns the homepage"""
+    """Returns the contact info page"""
     return render_template("contacts.html")
 
 @app.route("/visualizations")
 def show_visualizations():
-    """Returns the homepage"""
+    """Returns the visualizations"""
     return render_template("visualizations.html")
 
 @app.route("/model-build")
-def show_visualizations():
-    """Returns the homepage"""
-    return render_template("mode-build.html")
-
-# @app.route("/data")
-# def show_data():
-#   	return nfl_data
-
-#       @TODO
-#       #Database stuff
+def show_model():
+    """Returns the model building page"""
+    return render_template("model-build.html")
 
 @app.route("/predictions")
 def make_predictions():
      """Returns prediction page"""
      return render_template("predictions.html")
-
-
 
 if __name__ == "__main__":
      app.run()
