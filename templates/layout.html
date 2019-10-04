@@ -35,6 +35,7 @@
   <body>
     <div class="wrapper">
       <!-- Sidebar  -->
+
       <nav id="sidebar">
         <div class="sidebar-header">
           <h3>A Machine Learning Approach to Predict NFL Plays</h3>
@@ -46,23 +47,23 @@
             <a href="/">Home</a>
           </li>
           <!-- <li class="active">
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
-                            class="dropdown-toggle">Home</a>
-                        <ul class="collapse list-unstyled" id="homeSubmenu">
-                            <li>
-                                <a href="#">Home 1</a>
-                            </li>
-                            <li>
-                                <a href="#">Home 2</a>
-                            </li>
-                            <li>
-                                <a href="#">Home 3</a>
-                            </li>
-                        </ul>
-                    </li> -->
-          <li>
-            <a href="#">About</a>
-          </li>
+                  <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
+                      class="dropdown-toggle">Home</a>
+                  <ul class="collapse list-unstyled" id="homeSubmenu">
+                      <li>
+                          <a href="#">Home 1</a>
+                      </li>
+                      <li>
+                          <a href="#">Home 2</a>
+                      </li>
+                      <li>
+                          <a href="#">Home 3</a>
+                      </li>
+                  </ul>
+              </li> -->
+          <!-- <li>
+                  <a href="#">About</a>
+              </li> -->
           <li>
             <a
               href="#pageSubmenu"
@@ -72,20 +73,20 @@
               >Pages</a
             >
             <ul class="collapse list-unstyled" id="pageSubmenu">
+              <!-- <li>
+                          <a href="#">Predictability of NFL Plays</a>
+                      </li> -->
               <li>
-                <a href="#">Predictability of NFL Plays</a>
-              </li>
-              <li>
-                <a href="#">Building the model</a>
+                <a href="/model-build">Building the model</a>
               </li>
               <li>
                 <a href="/predictions">Let's Play Headcoach!</a>
               </li>
             </ul>
           </li>
-          <li>
-            <a href="#">Portfolio</a>
-          </li>
+          <!-- <li>
+                  <a href="#">Portfolio</a>
+              </li> -->
           <li>
             <a href="/contact-info">Contact</a>
           </li>
@@ -109,8 +110,9 @@
         </ul>
       </nav>
 
-      <!-- Page Content  -->
+      <!-- Right Hand Side -->
       <div class="container">
+        <!-- Top Nav -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
             <button type="button" id="sidebarCollapse" class="btn btn-info">
@@ -141,6 +143,8 @@
             </div>
           </div>
         </nav>
+
+        <!-- Page Content  -->
         <div id="content">
           <div class="container">
             {% block content %} {% endblock %}

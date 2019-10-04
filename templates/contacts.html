@@ -1,224 +1,124 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %} {% block content %}
+<div class="container">
+  <div class="container">
+    <h2 class="name">Roger Lefort</h2>
+    <div id="container">
+      <img
+        src="https://cdn0.iconfinder.com/data/icons/mobile-device/512/email-mail-mailer-message-round-keyboard-2-512.png"
+        alt="email"
+        style="float: left; width:25px;height:25px;"
+      />
+      <ul class="contact">
+        rogerlefort@icloud.com
+      </ul>
+    </div>
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <div id="container" class="contact">
+      <img
+        src="https://www.pngfind.com/pngs/m/101-1013043_download-linkedin-logo-round-png-transparent-png.png"
+        alt="linkedin"
+        style="float: left; width:25px;height:25px;"
+      />
+      <ul>
+        <a href="https://www.linkedin.com/in/roger-lefort/"
+          >LinkedIn: www.linkedin.com/in/roger-lefort</a
+        >
+      </ul>
+    </div>
 
-        <title>NFL Predictions</title>
+    <div id="container" class="contact">
+      <img
+        src="http://iconsetc.com/icons-watermarks/flat-circle-white-on-blue/foundation/foundation_social-github/foundation_social-github_flat-circle-white-on-blue_512x512.png"
+        alt="github"
+        style="float: left; width:25px;height:25px;"
+      />
+      <ul>
+        <a href="https://github.com/tiroger">Github: www.github.com/tiroger</a>
+      </ul>
+    </div>
+  </div>
 
-        <!-- Bootstrap CSS CDN -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
-            integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-        <!-- Our Custom CSS -->
-        <link rel="stylesheet" href="static/css/style.css">
+  <div class="line"></div>
 
-        <!-- Font Awesome JS -->
-        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-            integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-            crossorigin="anonymous"></script>
-        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-            integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-            crossorigin="anonymous"></script>
-    </head>
+  <div class="container">
+    <h2 class="name">Wendy Guo</h2>
+    <div id="container">
+      <img
+        src="https://cdn0.iconfinder.com/data/icons/mobile-device/512/email-mail-mailer-message-round-keyboard-2-512.png"
+        alt="email"
+        style="float: left; width:25px;height:25px;"
+      />
+      <ul class="contact">
+        Xg224@cornell.edu
+      </ul>
+    </div>
 
-    <body>
-        <div class="wrapper">
-            <!-- Sidebar  -->
-            <nav id="sidebar">
-                <div class="sidebar-header">
-                    <h3>A Machine Learning Approach to Predict NFL Plays</h3>
-                </div>
+    <div id="container" class="contact">
+      <img
+        src="https://www.pngfind.com/pngs/m/101-1013043_download-linkedin-logo-round-png-transparent-png.png"
+        alt="linkedin"
+        style="float: left; width:25px;height:25px;"
+      />
+      <ul>
+        <a href="https://www.linkedin.com/in/xiaoqiwendyguo"
+          >LinkedIn: www.linkedin.com/in/xiaoqiwendyguo</a
+        >
+      </ul>
+    </div>
 
-                <ul class="list-unstyled components">
-                    <p>Navigation</p>
-                        <li>
-                            <a href="/">Home</a>
-                        </li>
-                    <!-- <li class="active">
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
-                            class="dropdown-toggle">Home</a>
-                        <ul class="collapse list-unstyled" id="homeSubmenu">
-                            <li>
-                                <a href="#">Home 1</a>
-                            </li>
-                            <li>
-                                <a href="#">Home 2</a>
-                            </li>
-                            <li>
-                                <a href="#">Home 3</a>
-                            </li>
-                        </ul>
-                    </li> -->
-                    <!-- <li>
-                        <a href="#">About</a>
-                    </li> -->
-                    <li>
-                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
-                            class="dropdown-toggle">Pages</a>
-                        <ul class="collapse list-unstyled" id="pageSubmenu">
-                            <!-- <li>
-                                <a href="#">Page 1</a>
-                            </li> -->
-                            <li>
-                                <a href="/model-build">Building the model<</a>
-                            </li>
-                            <li>
-                                <a href="/predictions">Let's Play Headcoach!</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- <li>
-                        <a href="#">Portfolio</a>
-                    </li> -->
-                    <li>
-                        <a href="/contact-info">Contact</a>
-                    </li>
-                </ul>
+    <div id="container" class="contact">
+      <img
+        src="http://iconsetc.com/icons-watermarks/flat-circle-white-on-blue/foundation/foundation_social-github/foundation_social-github_flat-circle-white-on-blue_512x512.png"
+        alt="github"
+        style="float: left; width:25px;height:25px;"
+      />
+      <ul>
+        <a href="https://github.com/wendyguo715"
+          >Github: www.github.com/wendyguo715</a
+        >
+      </ul>
+    </div>
+  </div>
 
-                <ul class="list-unstyled CTAs">
-                    <li>
-                        <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download
-                            Data</a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/tiroger/Prediciting_NFL_Stats_ML" class="article">Github Repository</a>
-                    </li>
-                </ul>
-            </nav>
+  <div class="line"></div>
 
-            <!-- Page Content  -->
-            <div id="content">
+  <div class="container">
+    <h2 class="name">Nelson Leung</h2>
+    <div id="container">
+      <img
+        src="https://cdn0.iconfinder.com/data/icons/mobile-device/512/email-mail-mailer-message-round-keyboard-2-512.png"
+        alt="email"
+        style="float: left; width:25px;height:25px;"
+      />
+      <ul class="contact">
+        nelsonleungnyc@gmail.com
+      </ul>
+    </div>
 
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container-fluid">
+    <div id="container" class="contact">
+      <img
+        src="https://www.pngfind.com/pngs/m/101-1013043_download-linkedin-logo-round-png-transparent-png.png"
+        alt="linkedin"
+        style="float: left; width:25px;height:25px;"
+      />
+      <ul>
+        <a href="https://www.linkedin.com/in/nelsonleungnyc"
+          >Linkedin: www.linkedin.com/in/nelsonleungnyc</a
+        >
+      </ul>
+    </div>
 
-                        <button type="button" id="sidebarCollapse" class="btn btn-info">
-                            <i class="fas fa-align-left"></i>
-                            <span>Toggle Sidebar</span>
-                        </button>
-                        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button"
-                            data-toggle="collapse" data-target="#navbarSupportedContent"
-                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <i class="fas fa-align-justify"></i>
-                        </button>
+    <div id="container" class="contact">
+      <img
+        src="http://iconsetc.com/icons-watermarks/flat-circle-white-on-blue/foundation/foundation_social-github/foundation_social-github_flat-circle-white-on-blue_512x512.png"
+        alt="github"
+        style="float: left; width:25px;height:25px;"
+      />
+      <ul>
+        <a href="https://github.com/NxLeung">Github: www.github.com/NxLeung</a>
+      </ul>
+    </div>
+  </div>
+</div>
 
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="nav navbar-nav ml-auto">
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="#">Page</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Page</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Page</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Page</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-
-                <h2 class='name'>Roger Lefort</h2>
-                <div id="container">
-                    <img src='https://cdn0.iconfinder.com/data/icons/mobile-device/512/email-mail-mailer-message-round-keyboard-2-512.png' alt="email" style='float: left; width:25px;height:25px;'/>
-                        <ul class='contact'>
-                        rogerlefort@icloud.com
-                        </ul>
-                </div>
-
-                <div id="container" class='contact'>
-                    <img src='https://www.pngfind.com/pngs/m/101-1013043_download-linkedin-logo-round-png-transparent-png.png' alt="linkedin" style='float: left; width:25px;height:25px;'/>
-                        <ul>
-                        <a href="https://www.linkedin.com/in/roger-lefort/">Linkedin</a>
-                        </ul>
-                </div>
-
-                <div id="container" class='contact'>
-                    <img src='http://iconsetc.com/icons-watermarks/flat-circle-white-on-blue/foundation/foundation_social-github/foundation_social-github_flat-circle-white-on-blue_512x512.png' alt="github" style='float: left; width:25px;height:25px;'/>
-                        <ul>
-                        <a href='https://github.com/tiroger'>Github</a>
-                        </ul>
-                </div>
-
-                <div class="line"></div>
-
-                <h2 class='name'>Wendy Guo</h2>
-                <div id="container">
-                    <img src='https://cdn0.iconfinder.com/data/icons/mobile-device/512/email-mail-mailer-message-round-keyboard-2-512.png' alt="email" style='float: left; width:25px;height:25px;'/>
-                        <ul class='contact'>
-                        TBD
-                        </ul>
-                </div>
-
-                <div id="container" class='contact'>
-                    <img src='https://www.pngfind.com/pngs/m/101-1013043_download-linkedin-logo-round-png-transparent-png.png' alt="linkedin" style='float: left; width:25px;height:25px;'/>
-                        <ul>
-                        <a href=#">Linkedin</a>
-                        </ul>
-                </div>
-
-                <div id="container" class='contact'>
-                    <img src='http://iconsetc.com/icons-watermarks/flat-circle-white-on-blue/foundation/foundation_social-github/foundation_social-github_flat-circle-white-on-blue_512x512.png' alt="github" style='float: left; width:25px;height:25px;'/>
-                        <ul>
-                        <a href='#'>Github</a>
-                        </ul>
-                </div>
-
-                <div class="line"></div>
-
-                <h2 class='name'>Nelson Leung</h2>
-                <div id="container">
-                    <img src='https://cdn0.iconfinder.com/data/icons/mobile-device/512/email-mail-mailer-message-round-keyboard-2-512.png' alt="email" style='float: left; width:25px;height:25px;'/>
-                        <ul class='contact'>
-                        TBD
-                        </ul>
-                </div>
-
-                <div id="container" class='contact'>
-                    <img src='https://www.pngfind.com/pngs/m/101-1013043_download-linkedin-logo-round-png-transparent-png.png' alt="linkedin" style='float: left; width:25px;height:25px;'/>
-                        <ul>
-                        <a href="#">Linkedin</a>
-                        </ul>
-                </div>
-
-                <div id="container" class='contact'>
-                    <img src='http://iconsetc.com/icons-watermarks/flat-circle-white-on-blue/foundation/foundation_social-github/foundation_social-github_flat-circle-white-on-blue_512x512.png' alt="github" style='float: left; width:25px;height:25px;'/>
-                        <ul>
-                        <a href='#'>Github</a>
-                        </ul>
-                </div>
-
-                
-
-                
-            </div>
-        </div>
-
-        <!-- jQuery CDN - Slim version (=without AJAX) -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-        <!-- Popper.JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-            integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-            crossorigin="anonymous"></script>
-        <!-- Bootstrap JS -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-            integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-            crossorigin="anonymous"></script>
-
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#sidebarCollapse').on('click', function () {
-                    $('#sidebar').toggleClass('active');
-                });
-            });
-        </script>
-    </body>
-
-</html>
+{% endblock %}
