@@ -117,41 +117,53 @@
                     </div>
                 </nav>
 
-                <h2>Introduction</h2>
-                <p>In the National Football League (NFL), being able to accurately predict which play your oppent will call given a set of circumstances would be an invaluable tool, and teams devote many resources towards gaining insights into an opponent’s tendencies on the field. One area of immense interest is assessing a team’s propensity to run or pass the ball in a given situation, which for a defense can inform critical decision-making about strategy, personnel, and positioning on the field – decisions that have a profound impact on the outcome of a game.</p>
-
-                <p>In this project, we take a data-driven approach to classifying offensive play types and examine whether tools from machine learning can offer value in characterizing offensive tendencies.</p>
-
-                <div class="line"></div>
-
-                <h2>Background</h2>
+                <h2>Building the Model</h2>
                 <div id="container">
-                    <img src='https://www.sportsbookadvisor.com/wp-content/uploads/2016/12/1-14.jpg' alt="nfl snow" style='float: right; width:600px;height:400px;'/>
-                    <p>Much of the work on this topic stems from operations research and economics communities as researchers sought ways to determine optimal play-calling strategies through the frameworks of game theory and decision analysis. This line of inquiry was formally introduced in 1978 by Carter and Machol[1] in their seminal paper outlining optimal fourth-down strategies. These studies were later extended by Boronico and Newbert[2] to include goal-line situations and ultimately all plays by Jordan, et al.[3]. We sought to further extend on this topic by including an important factor in decision-making in sports, specifically outdoor sports, namaly weather.</p>
+                    <img src='https://pngimage.net/wp-content/uploads/2018/06/machine-learning-png.png' alt="machine brain" style='float: right; width:288px;height:262px;'/>
+                    <p>The data set used for our model contains a detailed play-by-play account of every single play ran over the course of 10 season. It contains, geographical and date information, the type of play that was called, the number of yeards gained from said play, down, clock and field positioning, among others. It also contains offensive stats on each player directly involved in the play, such as passing and rushing yards, yards ran after a catch, etc, and defensive stats, such as fumbles and interceptions, and of course play outcome, e.g. touchdown, field goal, etc.</p>
                 </div>
-                
-                <p>Indeed, weather can significantly influence how a coach will call a play: Downfield passing and receiving plays are the most affected by the weather conditions. Heavy rains can cause visibility issues for both the quarterback and the receiver, affect grip resulting in players fumbling the ball when attempting to receive a pass in rain. Strong winds can alter ball trajectory, resulting in more interceptions. Because running back are the most "waterproof" players, offense can ofter continue to run the ball when passing plays are compromised by conditions.</p>
-                    
-                <p>While our work focuses on predicting what play a team will run given a set of conditions, as opposed to what a team ought to do, the foundation established in these early papers in identifying the most critical situational statistics for play-calling decisions proved valuable to us in selecting features for our algorithms.</p>
+
+                <p>In order to create a model that can predict which play is the likeliest to be called, we resonned that any information relating the the state prior to calling the play would be critical in informing the decision to run a pass or a run play, or alternatively to kick a field goal or punt. We limited our predictions to either pass or run plays for several reasons:</p>
+
+                <ol>
+                    <li style="padding-bottom: 16px;">Kickoffs were removed as they only occur at the beginning of the game/half or after a scoring drive. Decisions don't factor in other then the type of kick, e.g. long, short or onside kick.</li>
+                    <li style="padding-bottom: 16px;">Edge cases, such as QB kneel or spiking where also dropped as these decisions are fairly obvious given a specific set of circumstances.</li>
+                    <li style="padding-bottom: 16px;">Punts and field goals typically occur on 4th down and the decisions to run either play is largely determined by field positioning</li>
+                </ol> 
+
+                <p>Our next task was to choose the features which, as discussed above, would be predicted to influence play calling.</p>
+
+                <h4>Intrinsic Features</h4>
+                <p>The goal of a play is to gain as many yards as possible, 10 at a minimum, generally over the course of 3 downs. As such we would expect down and distance to go to be critical in deciding which play to call. Passes typically net more yards, but short distances are typically easier to obtain running the ball. Time remaining in the game and the score differential are also a crucial considerations. Finally, we reasoned that field positioning could be important, but largely dependent on other factors, such as time remaining and the number of time outs a team possesses, which we also excluded as a feature. We settled on the following features:</p>
+                <ul>
+                    <li style="padding-bottom: 16px;">Time remaining in the game</li>
+                    <li style="padding-bottom: 16px;">Time remaining in the half</li>
+                    <li style="padding-bottom: 16px;">Field position</li>
+                    <li style="padding-bottom: 16px;">Score differential</li>
+                    <li style="padding-bottom: 16px;">Yards to go to a 1st down or touchdown</li>
+                    <li style="padding-bottom: 16px;"> Current Down</li>
+                </ul>
+
+                <h4>Extrinsic Features</h4>
+                <p>As discussed earlier, weather plays a critical part in decidinf which play to call. For example, under heavy rains or strong winds, loss of grip and visibility may favor running plays. We sought out to detemine whether weather conditions could improve our learning model. The following game time weather parameters were included:</p>
+                <ul>
+                    <li style="padding-bottom: 16px;">Temperature</li>
+                    <li style="padding-bottom: 16px;">Precipitation (amount)</li>
+                    <li style="padding-bottom: 16px;">Snow (amount)</li>
+                    <li style="padding-bottom: 16px;">Wind speeds</li>
+                    <li style="padding-bottom: 16px;">Visibility</li>
+                    <li style="padding-bottom: 16px;">Humidity</li>
+                </ul>
 
                 <div class="line"></div>
 
-                <!-- <h2>Lorem Ipsum Dolor</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                    culpa qui officia deserunt mollit anim id est laborum.</p>
+                <h4>ML Algorithm</h4>
+                <div id="container">
+                    <p>After cleaning and aggregating the data</p>
+                </div>
 
                 <div class="line"></div>
 
-                <h3>Lorem Ipsum Dolor</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                    culpa qui officia deserunt mollit anim id est laborum.</p>
-            </div> -->
         </div>
 
         <!-- jQuery CDN - Slim version (=without AJAX) -->
