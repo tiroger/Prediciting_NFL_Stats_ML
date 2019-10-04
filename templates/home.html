@@ -1,0 +1,65 @@
+{% extends "layout.html" %} {% block content %}
+<div class="home">
+  <h2>Introduction</h2>
+  <p>
+    In the National Football League (NFL), being able to accurately predict
+    which play your oppent will call given a set of circumstances would be an
+    invaluable tool, and teams devote many resources towards gaining insights
+    into an opponent’s tendencies on the field. One area of immense interest is
+    assessing a team’s propensity to run or pass the ball in a given situation,
+    which for a defense can inform critical decision-making about strategy,
+    personnel, and positioning on the field – decisions that have a profound
+    impact on the outcome of a game.
+  </p>
+
+  <p>
+    In this project, we take a data-driven approach to classifying offensive
+    play types and examine whether tools from machine learning can offer value
+    in characterizing offensive tendencies.
+  </p>
+
+  <div class="line"></div>
+
+  <h2>Background</h2>
+  <div id="container">
+    <img
+      src="https://www.sportsbookadvisor.com/wp-content/uploads/2016/12/1-14.jpg"
+      alt="nfl snow"
+      style="float: right; width:600px;height:400px;"
+    />
+    <p>
+      Much of the work on this topic stems from operations research and
+      economics communities as researchers sought ways to determine optimal
+      play-calling strategies through the frameworks of game theory and decision
+      analysis. This line of inquiry was formally introduced in 1978 by Carter
+      and Machol[1] in their seminal paper outlining optimal fourth-down
+      strategies. These studies were later extended by Boronico and Newbert[2]
+      to include goal-line situations and ultimately all plays by Jordan, et
+      al.[3]. We sought to further extend on this topic by including an
+      important factor in decision-making in sports, specifically outdoor
+      sports, namaly weather.
+    </p>
+  </div>
+
+  <p>
+    Indeed, weather can significantly influence how a coach will call a play:
+    Downfield passing and receiving plays are the most affected by the weather
+    conditions. Heavy rains can cause visibility issues for both the quarterback
+    and the receiver, affect grip resulting in players fumbling the ball when
+    attempting to receive a pass in rain. Strong winds can alter ball
+    trajectory, resulting in more interceptions. Because running back are the
+    most "waterproof" players, offense can ofter continue to run the ball when
+    passing plays are compromised by conditions.
+  </p>
+
+  <p>
+    While our work focuses on predicting what play a team will run given a set
+    of conditions, as opposed to what a team ought to do, the foundation
+    established in these early papers in identifying the most critical
+    situational statistics for play-calling decisions proved valuable to us in
+    selecting features for our algorithms.
+  </p>
+
+  <div class="line"></div>
+</div>
+{% endblock %}
