@@ -8,6 +8,9 @@ api_keys.py
 # ML models
 *.pkl
 
+#sav
+*.sav
+
 # ignore csv files
 *.csv
 
