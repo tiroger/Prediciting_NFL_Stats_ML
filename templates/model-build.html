@@ -51,27 +51,27 @@
                             </li>
                         </ul>
                     </li> -->
-                    <li>
+                    <!-- <li>
                         <a href="#">About</a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle">Pages</a>
                         <ul class="collapse list-unstyled" id="pageSubmenu">
-                            <li>
+                            <!-- <li>
                                 <a href="#">Predictability of NFL Plays</a>
+                            </li> -->
+                            <li>
+                                <a href="/model-build">Building the model</a>
                             </li>
                             <li>
-                                <a href="#">Building the model</a>
-                            </li>
-                            <li>
-                                <a href="#">Let's Play Headcoach!</a>
+                                <a href="/predictions">Let's Play Headcoach!</a>
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#">Portfolio</a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="/contact-info">Contact</a>
                     </li>
@@ -126,9 +126,9 @@
                 <p>In order to create a model that can predict which play is the likeliest to be called, we resonned that any information relating the the state prior to calling the play would be critical in informing the decision to run a pass or a run play, or alternatively to kick a field goal or punt. We limited our predictions to either pass or run plays for several reasons:</p>
 
                 <ol>
-                    <li style="padding-bottom: 16px;">Kickoffs were removed as they only occur at the beginning of the game/half or after a scoring drive. Decisions don't factor in other then the type of kick, e.g. long, short or onside kick.</li>
-                    <li style="padding-bottom: 16px;">Edge cases, such as QB kneel or spiking where also dropped as these decisions are fairly obvious given a specific set of circumstances.</li>
-                    <li style="padding-bottom: 16px;">Punts and field goals typically occur on 4th down and the decisions to run either play is largely determined by field positioning</li>
+                    <li class='features' style="padding-bottom: 16px;">Kickoffs were removed as they only occur at the beginning of the game/half or after a scoring drive. Decisions don't factor in other then the type of kick, e.g. long, short or onside kick.</li>
+                    <li class='features' style="padding-bottom: 16px;">Edge cases, such as QB kneel or spiking where also dropped as these decisions are fairly obvious given a specific set of circumstances.</li>
+                    <li class='features' style="padding-bottom: 16px;">Punts and field goals typically occur on 4th down and the decisions to run either play is largely determined by field positioning</li>
                 </ol> 
 
                 <p>Our next task was to choose the features which, as discussed above, would be predicted to influence play calling.</p>
@@ -136,23 +136,23 @@
                 <h4>Intrinsic Features</h4>
                 <p>The goal of a play is to gain as many yards as possible, 10 at a minimum, generally over the course of 3 downs. As such we would expect down and distance to go to be critical in deciding which play to call. Passes typically net more yards, but short distances are typically easier to obtain running the ball. Time remaining in the game and the score differential are also a crucial considerations. Finally, we reasoned that field positioning could be important, but largely dependent on other factors, such as time remaining and the number of time outs a team possesses, which we also excluded as a feature. We settled on the following features:</p>
                 <ul>
-                    <li style="padding-bottom: 16px;">Time remaining in the game</li>
-                    <li style="padding-bottom: 16px;">Time remaining in the half</li>
-                    <li style="padding-bottom: 16px;">Field position</li>
-                    <li style="padding-bottom: 16px;">Score differential</li>
-                    <li style="padding-bottom: 16px;">Yards to go to a 1st down or touchdown</li>
-                    <li style="padding-bottom: 16px;"> Current Down</li>
+                    <li class='features' style="padding-bottom: 16px;">Time remaining in the game</li>
+                    <li class='features' style="padding-bottom: 16px;">Time remaining in the half</li>
+                    <li class='features' style="padding-bottom: 16px;">Field position</li>
+                    <li class='features' style="padding-bottom: 16px;">Score differential</li>
+                    <li class='features' style="padding-bottom: 16px;">Yards to go to a 1st down or touchdown</li>
+                    <li class='features' style="padding-bottom: 16px;"> Current Down</li>
                 </ul>
 
                 <h4>Extrinsic Features</h4>
                 <p>As discussed earlier, weather plays a critical part in decidinf which play to call. For example, under heavy rains or strong winds, loss of grip and visibility may favor running plays. We sought out to detemine whether weather conditions could improve our learning model. The following game time weather parameters were included:</p>
                 <ul>
-                    <li style="padding-bottom: 16px;">Temperature</li>
-                    <li style="padding-bottom: 16px;">Precipitation (amount)</li>
-                    <li style="padding-bottom: 16px;">Snow (amount)</li>
-                    <li style="padding-bottom: 16px;">Wind speeds</li>
-                    <li style="padding-bottom: 16px;">Visibility</li>
-                    <li style="padding-bottom: 16px;">Humidity</li>
+                    <li class='features' style="padding-bottom: 16px;">Temperature</li>
+                    <li class='features' style="padding-bottom: 16px;">Precipitation (amount)</li>
+                    <li class='features' style="padding-bottom: 16px;">Snow (amount)</li>
+                    <li class='features' style="padding-bottom: 16px;">Wind speeds</li>
+                    <li class='features' style="padding-bottom: 16px;">Visibility</li>
+                    <li class='features' style="padding-bottom: 16px;">Humidity</li>
                 </ul>
 
                 <div class="line"></div>
