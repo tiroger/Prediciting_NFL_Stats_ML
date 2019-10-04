@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>NFL Predictions</title>
+
+        <!-- Bootstrap CSS CDN -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!-- Our Custom CSS -->
+        <link rel="stylesheet" href="static/css/style.css">
+
+        <!-- Font Awesome JS -->
+        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+            integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+            crossorigin="anonymous"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+            integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+            crossorigin="anonymous"></script>
+
+        <!-- jQuery CDN - Slim version (=without AJAX) -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.js" integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=" crossorigin="anonymous"></script>
+
+        <!-- Popper.JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js" integrity="sha256-fTuUgtT7O2rqoImwjrhDgbXTKUwyxxujIMRIK7TbuNU=" crossorigin="anonymous"></script>
+
+        <!-- Bootstrap JS -->
+        
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        
+        
+        
+        
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>A Machine Learning Approach to Predict NFL Plays</h3>
+                </div>
+
+                <ul class="list-unstyled components">
+                    <p>Navigation</p>
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                    <!-- <li class="active">
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
+                            class="dropdown-toggle">Home</a>
+                        <ul class="collapse list-unstyled" id="homeSubmenu">
+                            <li>
+                                <a href="#">Home 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Home 2</a>
+                            </li>
+                            <li>
+                                <a href="#">Home 3</a>
+                            </li>
+                        </ul>
+                    </li> -->
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
+                            class="dropdown-toggle">Pages</a>
+                        <ul class="collapse list-unstyled" id="pageSubmenu">
+                            <li>
+                                <a href="#">Predictability of NFL Plays</a>
+                            </li>
+                            <li>
+                                <a href="#">Building the model</a>
+                            </li>
+                            <li>
+                                <a href="#">Let's Play Headcoach!</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Portfolio</a>
+                    </li>
+                    <li>
+                        <a href="/contact-info">Contact</a>
+                    </li>
+                </ul>
+
+                <ul class="list-unstyled CTAs">
+                    <li>
+                        <a href="https://www.kaggle.com/maxhorowitz/nflplaybyplay2009to2016" class="download">Download
+                            Data</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/tiroger/Prediciting_NFL_Stats_ML" class="article">Github Repository</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Page Content  -->
+            <div id="content">
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+
+                        <button type="button" id="sidebarCollapse" class="btn btn-info">
+                            <i class="fas fa-align-left"></i>
+                            <span>Toggle Sidebar</span>
+                        </button>
+                        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button"
+                            data-toggle="collapse" data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fas fa-align-justify"></i>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav ml-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="/">Introduction and Background</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/visualizations">Visualizations</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div class="line"></div>
+
+                <h2>Let's Play Head Coach</h2>
+                
+                <div class="container" .mb-3>
+                        <script src="static/js/spinners.js"></script>
+
+                        <script>
+                            $("input[type='number']").inputSpinner()
+                        </script>
+                <div class="row">
+                    <div class="col-6">
+                            <h5>
+                                Weather conditions
+                            </h5>
+                            <input id="weather1" type="number" value="80" min="0" max="100" step="1"/>
+                            <span class="badge badge-secondary">Weather1</span><br>
+                            <input id="weather2" type="number" value="80" min="0" max="100" step="1"/>
+                            <span class="badge badge-secondary">Weather2</span><br>
+                            <input id="weather3" type="number" value="80" min="0" max="100" step="1"/>
+                            <span class="badge badge-secondary">Weather3</span><br>
+
+                            <h5>
+                                Time Left
+                            </h5>
+                            <input id="secondsHalf" type="number" value="500" min="0" max="1800" step="60"/>
+                            <span class="badge badge-secondary">Seconds left in Half</span><br>
+                            <input id="secondsGame" type="number" value="500" min="0" max="3600" step="60"/>
+                            <span class="badge badge-secondary">Seconds left in Game</span><br>
+                           
+                    </div>
+                    <div class="col-6">
+                            
+                            <h5>
+                            Enter the game conditions
+                            </h5>
+        
+                            <input id="yardline" type="number" value="50" min="0" max="100" step="1"/>
+                            <span class="badge badge-secondary">Ball on Yardline</span><br>
+                            
+                            <input id="down" type="number" value="1" min="1" max="4" step="1"/>
+                            <span class="badge badge-secondary">Down</span><br>
+                            <input id="ydstogo" type="number" value="10" min="0" max="99" step="1"/>
+                            <span class="badge badge-secondary">Yards to Go</span><br>
+                            <input id="scoreDif" type="number" value="0" min="-100" max="100" step="1"/>
+                            <span class="badge badge-secondary">Score Difference</span><br><br>
+                            <div class="container" .mt-5>
+                                    <button id = "submit-data-btn" type="button" class="btn btn-primary btn-lg">Submit</button>
+                                </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                    
+
+                <div class="line"></div>
+
+                <h2>Predicted Play</h2>
+                <div id="predictionOutput">
+                    <img id="output">
+                </div>
+
+                
+                
+
+                <div class="line"></div>
+
+                <!-- <h2>Lorem Ipsum Dolor</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                    culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <div class="line"></div>
+
+                <h3>Lorem Ipsum Dolor</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                    culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div> -->
+            
+            
+        </div>
+
+        <script src="https://d3js.org/d3.v5.min.js"></script> 
+        <script src="static/js/prediction.js"></script>
+    </body>
+
+</html>
