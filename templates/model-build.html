@@ -94,22 +94,37 @@
 
   <div class="line"></div>
 
-  <h4>ML Algorithm</h4>
-  <div id="container">
-    <p>Our decision to limit the play types reduced this to a classification: Given a set of pre-existing game and weather conditions, what is the predicted play call. After cleaning and aggregating the data, we ran multiple algorithms:</p>
-
+  <h4>Algorithm</h4>
+  <p>
+    Our decision to limit the play types reduced this to a classification: Given a set of pre-existing game and weather conditions, what is the predicted play call. After cleaning and aggregating the data, we ran multiple algorithms:
+  </p>
+  <ul>
     <li class="features" style="padding-bottom: 16px;">Logistic Regression</li>
-    <li class="features" style="padding-bottom: 16px;">Precipitation (amount)</li>
-    <li class="features" style="padding-bottom: 16px;">Snow (amount)</li>
-    <li class="features" style="padding-bottom: 16px;">Wind speeds</li>
-    <li class="features" style="padding-bottom: 16px;">Visibility</li>
-    <li class="features" style="padding-bottom: 16px;">Humidity</li>
+    <li class="features" style="padding-bottom: 16px;">Bagging meta-estimator</li>
+    <li class="features" style="padding-bottom: 16px;">AdaBoost</li>
+    <li class="features" style="padding-bottom: 16px;">XGBoost</li>
+    <li class="features" style="padding-bottom: 16px;">Decision Tree</li>
+    <li class="features" style="padding-bottom: 16px;">Random Forest</li>
   </ul>
 
+  <div class="line"></div>
+
+  <script type='text/javascript' src='https://prod-useast-a.online.tableau.com/javascripts/api/viz_v1.js'></script>
+  <div class='tableauPlaceholder' style='width: 1200px; height: 647px;'><object class='tableauViz' width='1200' height='647' style='display:none;'><param name='host_url' value='https%3A%2F%2Fprod-useast-a.online.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='&#47;t&#47;rogerlefort' /><param name='name' value='ModelScores&#47;Sheet2' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='showAppBanner' value='false' /><param name='filter' value='iframeSizedToWindow=true' /></object></div>
+
+  <div id="container">
 
 
+    <script>
+        d3.json('/scores', function(data) {
+            console.log(data);
+            });
+    </script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
   </div>
 
   <div class="line"></div>
+
+
 </div>
 {% endblock %}

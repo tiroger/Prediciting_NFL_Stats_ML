@@ -8,6 +8,9 @@ import numpy as np
 from flask import Flask, jsonify, render_template, request
 # from flask_sqlalchemy import SQLAlchemy
 
+# To Return json of scores
+import json
+
 app = Flask(__name__)
 
 
@@ -48,11 +51,14 @@ def show_model():
     """Returns the model building page"""
     return render_template("model-build.html")
 
-
-@app.route("/forms")
-def show_forms():
-    return render_template("forms.html")
-
+@app.route("/scores")
+def model_scores():
+    # Loading the JSON file's data into file_data
+    # every time a request is made to this endpoint
+    with open('resources/model_score.json', 'r') as jsonfile:
+        file_data = json.loads(jsonfile.read())
+    # We can then find the data for the requested date and send it back as json
+    return json.dumps(file_data)
 
 @app.route("/predictions", methods=["GET", "POST"])
 def make_predictions():
@@ -68,14 +74,19 @@ def make_predictions():
     return render_template("predictions.html", prediction=prediction)
 
 
-# @app.route('/result', methods=['POST'])
-# # def predictPlay(inputValue):
-# #     return result, "Made it to predictPlay"
+# @app.route('/result', methods = ['POST'])
 # def result():
 #     if request.method == 'POST':
-#         print("RECEIVE ROUTE REQUEST!!!!!!!")
 
-#         return render_template("predictions.html", prediction=prediction)
+#         # any transforms
+#         modelValue = request.form.to_dict()
+#         modelValue = list(modelValue.values())
+#         modelValue = list(map(int, modelValue))
+
+#         prediction = predictPlay(modelValue)
+
+#         return render_template("predictions.html",prediction=prediction)
+
 
 if __name__ == "__main__":
     app.run()
