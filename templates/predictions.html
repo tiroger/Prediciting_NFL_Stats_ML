@@ -15,7 +15,7 @@
     </script>
     <div class="row">
       <div class="col-6">
-        <h5 class='input'>
+        <h5 class="input">
           Weather conditions
         </h5>
         <input
@@ -46,7 +46,7 @@
         />
         <span class="badge badge-secondary">Weather3</span><br />
 
-        <h5 class='input'>
+        <h5 class="input">
           Time Left
         </h5>
         <input
@@ -69,7 +69,7 @@
         <span class="badge badge-secondary">Seconds left in Game</span><br />
       </div>
       <div class="col-6">
-        <h5 class='input'>
+        <h5 class="input">
           Enter the game conditions
         </h5>
 
@@ -118,9 +118,11 @@
 
   <div class="line"></div>
 
-  <h2 class='input'>Predicted Play</h2>
+  <h2 class="input">Predicted Play</h2>
   <div id="predictionOutput">
     <img id="output" />
+    {{ prediction }}
+    <img src= "static/images/"{{ prediction }}".gif">
   </div>
 
   <div class="line"></div>
