@@ -11,8 +11,8 @@ api_keys.py
 #sav
 *.sav
 
-# ignore csv files
-*.csv
+# ignore raw data csv file
+NFL_Play_by_Play_2009_2018.csv.zip
 
 # ignore node/grunt dependency directories
 node_modules/

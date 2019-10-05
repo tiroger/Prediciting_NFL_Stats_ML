@@ -79,18 +79,39 @@ a:focus {
     SIDEBAR STYLE
 ----------------------------------------------------- */
 
-.wrapper {
+/* .wrapper {
   display: flex;
   width: 100%;
   align-items: stretch;
 }
 
-#sidebar {
+/* #sidebar {
   min-width: 250px;
   max-width: 250px;
   background: #072036;
   color: #fff;
   transition: all 0.3s;
+} */ */
+
+/* ---------------------------------------------------
+    STATIC SIDEBAR STYLE
+----------------------------------------------------- */
+
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+#sidebar {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 999;
+    background: #072036;
+    color: #fff;
+    transition: all 0.3s;
 }
 
 #sidebar.active {
