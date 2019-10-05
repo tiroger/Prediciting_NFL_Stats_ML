@@ -73,9 +73,10 @@ predictions_LogReg.head()
 
  # Coefficients
 LogReg_coefficients = LogReg_classifier.coef_
-LogReg_coefficients_array = coefficients[0]
+LogReg_coefficients
+LogReg_coefficients_array = LogReg_coefficients[0]
 LogReg_coefficients_array
-# Calculating odds ratio
+#Calculating odds ratio
 LogReg_odds_ratio = np.exp(LogReg_coefficients_array)
 LogReg_odds_ratio
 
@@ -195,6 +196,7 @@ model_scores = pd.merge(model_train_scores_df, model_test_scores_df, on='model')
 model_scores.head()
 
 model_scores.to_csv('resources/model_score.csv', index=False)
+model_scores.to_json('resources/model_score.json', orient='records')
 
 ########################################
 ###         NEURAL NETWORK           ###
