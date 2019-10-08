@@ -109,21 +109,58 @@
 
   <div class="line"></div>
 
+  <div class="dropdown"></div>
+  <div id="dropdown-viz"></div>
+
+  <!-- <div id="container">
+
   <script type='text/javascript' src='https://prod-useast-a.online.tableau.com/javascripts/api/viz_v1.js'></script>
-  <div class='tableauPlaceholder' style='width: 1200px; height: 647px;'><object class='tableauViz' width='1200' height='647' style='display:none;'><param name='host_url' value='https%3A%2F%2Fprod-useast-a.online.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='&#47;t&#47;rogerlefort' /><param name='name' value='ModelScores&#47;Sheet2' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='showAppBanner' value='false' /><param name='filter' value='iframeSizedToWindow=true' /></object></div>
+  <div class='tableauPlaceholder' style='width: 1200px; height: 647px;'><object class='tableauViz' width='1200' height='647' style='display:none;'><param name='host_url' value='https%3A%2F%2Fprod-useast-a.online.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='&#47;t&#47;rogerlefort' /><param name='name' value='ModelScores&#47;Sheet2' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='showAppBanner' value='false' /><param name='filter' value='iframeSizedToWindow=true' /></object></div> -->
 
-  <div id="container">
+  </div>
 
 
-    <script>
-        d3.json('/scores', function(data) {
-            console.log(data);
-            });
-    </script>
+    <!-- <script>
+    var modelScores = ["Train Score", "Test Score"];
+    var url = "/scores";
+    var promise = d3.json(url);
+
+    // Getting data from table route
+    promise.then(function(data){
+      // console.log(data);
+
+    	// create the drop down menu of cities
+    	var selector = d3.select("body")
+    		.append("select")
+    		.attr("id", "model")
+    		.selectAll("option")
+    		.data(data)
+    		.enter().append("option")
+    		.text(function(d) { return d.model; })
+    		.attr("value", function (d, i) {
+    			return i;
+          console.log(d.model)
+    		});
+        // generate a random index value and set the selector to the city
+      // at that index value in the data array
+      var index = Math.round(Math.random() * data.length);
+      d3.select("#model").property("selectedIndex", index);
+
+      // append a paragraph tag to the body that shows the city name and it's population
+      d3.select("body")
+            .append("p")
+            .data(data)
+            .text(function(d){
+              return data[index]['train_score'];
+            })
+
+      });
+    </script> -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
   </div>
 
   <div class="line"></div>
+
 
 
 </div>

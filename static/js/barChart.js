@@ -1,249 +1,79 @@
-// Load and munge data, then make the visualization.
-var nutritionFields = ["Train Score", "Test Score"];
-var url = "/scores";
-var promise = d3.json(url)
 
-promise.then(function(data){
-  console.log(data)
-  var cerealMap = {};
-  // data.forEach(function(d) {
-  //   var model = d.model;
-  //   var trainScore = d.train_score;
-  //   var testScore = d.test_score;
-  //   console.log(model);
-  //   console.log(trainScore);
-  //   console.log(testScore);
-  //
-  //   trainScore[model] = [];
-  data.forEach(function(d) {
-      var cereal = d.model;
-      cerealMap[cereal] = [];
+// Creating canvas
+var margin = {top: 80, right: 180, bottom: 80, left: 180},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
-      // { cerealName: [ bar1Val, bar2Val, ... ] }
-      nutritionFields.forEach(function(field) {
-          cerealMap[cereal].push( +d[field] );
-      });
-  });
-  makeVis(cerealMap);
-});
-
-var makeVis = function(cerealMap) {
-  // Define dimensions of vis
-  var margin = { top: 30, right: 50, bottom: 30, left: 50 },
-      width  = 550 - margin.left - margin.right,
-      height = 250 - margin.top  - margin.bottom;
-
-  // Make x scale
-  var xScale = d3.scaleBand().rangeRound([0, width])
-
-  // d3.scale.ordinal()
-  //     .domain(nutritionFields)
-  //     .rangeRoundBands([0, width], 0.1);
-
-  // Make y scale, the domain will be defined on bar update
-  var yScale = d3.scaleLinear()
-      .range([height, 0]);
-
-  // Create canvas
-  var canvas = d3.select("#vis-container")
-    .append("svg")
-      .attr("width",  width  + margin.left + margin.right)
-      .attr("height", height + margin.top  + margin.bottom)
+var svg = d3.select("#dropdown-viz").append("svg")
+	.attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
     .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  // Make x-axis and add to canvas
-  var xAxis = d3.svg.axis()
-      .scale(xScale)
-      .orient("bottom");
 
-  canvas.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
+// Load and munge data, then make the visualization.
+var modelScores = ["Train Score", "Test Score"];
+var url = "/scores";
+// var promise = ;
 
-  // Make y-axis and add to canvas
-  var yAxis = d3.svg.axis()
-      .scale(yScale)
-      .orient("left");
+// Getting data from table route
+d3.json(url).then(function(data){
+  console.log(data);
+  var modelMap = {};
+  data.forEach(function(d) {
+    var model = d.model;
+    // console.log(model)
+    modelMap[model] = [];
+    modelScores.forEach(function(score) {
+      modelMap[model].push(+d[score]);
+      console.log(modelMap)
+    });
+  })
+// makeVis(modelMap);
 
-  var yAxisHandleForUpdate = canvas.append("g")
-      .attr("class", "y axis")
-      .call(yAxis);
 
-  yAxisHandleForUpdate.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("Value");
-
-  var updateBars = function(data) {
-      // First update the y-axis domain to match data
-      yScale.domain( d3.extent(data) );
-      yAxisHandleForUpdate.call(yAxis);
-
-      var bars = canvas.selectAll(".bar").data(data);
-
-      // Add bars for new data
-      bars.enter()
-        .append("rect")
-          .attr("class", "bar")
-          .attr("x", function(d,i) { return xScale( nutritionFields[i] ); })
-          .attr("width", xScale.rangeBand())
-          .attr("y", function(d,i) { return yScale(d); })
-          .attr("height", function(d,i) { return height - yScale(d); });
-
-      // Update old ones, already have x / width from before
-      bars
-          .transition().duration(250)
-          .attr("y", function(d,i) { return yScale(d); })
-          .attr("height", function(d,i) { return height - yScale(d); });
-
-      // Remove old ones
-      bars.exit().remove();
-  };
-
-  // Handler for dropdown value change
-  var dropdownChange = function() {
-      var newCereal = d3.select(this).property('value'),
-          newData   = cerealMap[newCereal];
-
-      updateBars(newData);
-  };
-
-  // Get names of cereals, for dropdown
-  var cereals = Object.keys(cerealMap).sort();
-
-  var dropdown = d3.select("#vis-container")
-      .insert("select", "svg")
-      .on("change", dropdownChange);
-
-  dropdown.selectAll("option")
-      .data(cereals)
-    .enter().append("option")
-      .attr("value", function (d) { return d; })
-      .text(function (d) {
-          return d[0].toUpperCase() + d.slice(1,d.length); // capitalize 1st letter
-      });
-
-  var initialData = cerealMap[ cereals[0] ];
-  updateBars(initialData);
-};
+	// create the drop down menu of models
+	var selector = d3.select(".dropdown")
+		.append("select")
+		.attr("id", "model")
+		.selectAll("option")
+		.data(data)
+		.enter().append("option")
+		.text(function(d) { return d.model; })
+		.attr("value", function (d, i) {
+			return i;
+		});
 
 
 
+  });
 
-           //     data.forEach(function(d) {
-           //         var cereal = d.cereal;
-           //         cerealMap[cereal] = [];
-           //
-           //         // { cerealName: [ bar1Val, bar2Val, ... ] }
-           //         nutritionFields.forEach(function(field) {
-           //             cerealMap[cereal].push( +d[field] );
-           //         });
-           //     });
-           //     makeVis(cerealMap);
-           // });
-           //
-           // var makeVis = function(cerealMap) {
-           //     // Define dimensions of vis
-           //     var margin = { top: 30, right: 50, bottom: 30, left: 50 },
-           //         width  = 550 - margin.left - margin.right,
-           //         height = 250 - margin.top  - margin.bottom;
-           //
-           //     // Make x scale
-           //     var xScale = d3.scale.ordinal()
-           //         .domain(nutritionFields)
-           //         .rangeRoundBands([0, width], 0.1);
-           //
-           //     // Make y scale, the domain will be defined on bar update
-           //     var yScale = d3.scale.linear()
-           //         .range([height, 0]);
-           //
-           //     // Create canvas
-           //     var canvas = d3.select("#vis-container")
-           //       .append("svg")
-           //         .attr("width",  width  + margin.left + margin.right)
-           //         .attr("height", height + margin.top  + margin.bottom)
-           //       .append("g")
-           //         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-           //
-           //     // Make x-axis and add to canvas
-           //     var xAxis = d3.svg.axis()
-           //         .scale(xScale)
-           //         .orient("bottom");
-           //
-           //     canvas.append("g")
-           //         .attr("class", "x axis")
-           //         .attr("transform", "translate(0," + height + ")")
-           //         .call(xAxis);
-           //
-           //     // Make y-axis and add to canvas
-           //     var yAxis = d3.svg.axis()
-           //         .scale(yScale)
-           //         .orient("left");
-           //
-           //     var yAxisHandleForUpdate = canvas.append("g")
-           //         .attr("class", "y axis")
-           //         .call(yAxis);
-           //
-           //     yAxisHandleForUpdate.append("text")
-           //         .attr("transform", "rotate(-90)")
-           //         .attr("y", 6)
-           //         .attr("dy", ".71em")
-           //         .style("text-anchor", "end")
-           //         .text("Value");
-           //
-           //     var updateBars = function(data) {
-           //         // First update the y-axis domain to match data
-           //         yScale.domain( d3.extent(data) );
-           //         yAxisHandleForUpdate.call(yAxis);
-           //
-           //         var bars = canvas.selectAll(".bar").data(data);
-           //
-           //         // Add bars for new data
-           //         bars.enter()
-           //           .append("rect")
-           //             .attr("class", "bar")
-           //             .attr("x", function(d,i) { return xScale( nutritionFields[i] ); })
-           //             .attr("width", xScale.rangeBand())
-           //             .attr("y", function(d,i) { return yScale(d); })
-           //             .attr("height", function(d,i) { return height - yScale(d); });
-           //
-           //         // Update old ones, already have x / width from before
-           //         bars
-           //             .transition().duration(250)
-           //             .attr("y", function(d,i) { return yScale(d); })
-           //             .attr("height", function(d,i) { return height - yScale(d); });
-           //
-           //         // Remove old ones
-           //         bars.exit().remove();
-           //     };
-           //
-           //     // Handler for dropdown value change
-           //     var dropdownChange = function() {
-           //         var newCereal = d3.select(this).property('value'),
-           //             newData   = cerealMap[newCereal];
-           //
-           //         updateBars(newData);
-           //     };
-           //
-           //     // Get names of cereals, for dropdown
-           //     var cereals = Object.keys(cerealMap).sort();
-           //
-           //     var dropdown = d3.select("#vis-container")
-           //         .insert("select", "svg")
-           //         .on("change", dropdownChange);
-           //
-           //     dropdown.selectAll("option")
-           //         .data(cereals)
-           //       .enter().append("option")
-           //         .attr("value", function (d) { return d; })
-           //         .text(function (d) {
-           //             return d[0].toUpperCase() + d.slice(1,d.length); // capitalize 1st letter
-           //         });
-           //
-           //     var initialData = cerealMap[ cereals[0] ];
-           //     updateBars(initialData);
-           // };
+  // generate a random index value and set the selector to the city
+// at that index value in the data array
+// var index = Math.round(Math.random() * data.length);
+// d3.select("#model").property("selectedIndex", index);
+//
+// // append a paragraph tag to the body that shows the city name and it's population
+// d3.select("body")
+//       .append("p")
+//       .data(data)
+//       .text(function(d){
+//         return data[index]['train_score'] + data[index]['test_score'];
+//       })
+//
+// // when the user selects a city, set the value of the index variable
+// // and call the update(); function
+// d3.select("#model")
+// .on("change", function(d) {
+//   index = this.value;
+//   update();
+// })
+//
+// // update the paragraph text to match the selection made by the user
+// function update(){
+//   d3.selectAll("p")
+//     .data(data)
+//     .text(function(d){
+//       return data[index]['train_score'] + data[index]['test_score'];
+//     })
+// };

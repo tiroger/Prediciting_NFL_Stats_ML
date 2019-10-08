@@ -254,6 +254,14 @@ select {
     shape-rendering: crispEdges;
 }
 
+/* ---------------------------------------------------
+    DROP DOWN
+----------------------------------------------------- */
+
+.dropdown {
+  padding-bottom: 25px;
+}
+
 /* input,
 textarea {
   border: 1px solid #eeeeee;
