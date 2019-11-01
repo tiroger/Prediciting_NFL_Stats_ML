@@ -4,6 +4,7 @@
 
 # API keys
 api_keys.py
+plotly_api_key.py
 
 # ML models
 *.pkl
