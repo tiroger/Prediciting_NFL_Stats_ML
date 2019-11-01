@@ -1,7 +1,7 @@
 {% extends "layout.html" %} {% block content %}
 <script
-  src="https://code.jquery.com/jquery-3.4.1.slim.js"
-  integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI="
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"
 ></script>
 <div class="container">
@@ -13,107 +13,110 @@
     <script>
       $("input[type='number']").inputSpinner();
     </script>
-    <div class="row">
-      <div class="col-6">
-        <h5 class="input">
-          Weather conditions
-        </h5>
-        <input
-          id="weather1"
-          type="number"
-          value="80"
-          min="0"
-          max="100"
-          step="1"
-        />
-        <span class="badge badge-secondary">Weather1</span><br />
-        <input
-          id="weather2"
-          type="number"
-          value="80"
-          min="0"
-          max="100"
-          step="1"
-        />
-        <span class="badge badge-secondary">Weather2</span><br />
-        <input
-          id="weather3"
-          type="number"
-          value="80"
-          min="0"
-          max="100"
-          step="1"
-        />
-        <span class="badge badge-secondary">Weather3</span><br />
+    <form action="/result" method="POST">
+      <div class="row">
+        <div class="col-6">
+          <h5 class="input">
+            Weather conditions
+          </h5>
+          <input
+            id="weather1"
+            type="number"
+            value="5"
+            min="0"
+            max="40"
+            step="1"
+          />
+          <span class="badge badge-secondary">Snow</span><br />
+          <input
+            id="weather2"
+            type="number"
+            value="80"
+            min="0"
+            max="150"
+            step="1"
+          />
+          <span class="badge badge-secondary">Temp</span><br />
+          <input
+            id="weather3"
+            type="number"
+            value="20"
+            min="0"
+            max="100"
+            step="1"
+          />
+          <span class="badge badge-secondary">Rain</span><br />
 
-        <h5 class="input">
-          Time Left
-        </h5>
-        <input
-          id="secondsHalf"
-          type="number"
-          value="500"
-          min="0"
-          max="1800"
-          step="60"
-        />
-        <span class="badge badge-secondary">Seconds left in Half</span><br />
-        <input
-          id="secondsGame"
-          type="number"
-          value="500"
-          min="0"
-          max="3600"
-          step="60"
-        />
-        <span class="badge badge-secondary">Seconds left in Game</span><br />
-      </div>
-      <div class="col-6">
-        <h5 class="input">
-          Enter the game conditions
-        </h5>
+          <h5 class="input">
+            Time Left
+          </h5>
+          <input
+            id="secondsHalf"
+            type="number"
+            value="500"
+            min="0"
+            max="1800"
+            step="60"
+          />
+          <span class="badge badge-secondary">Seconds left in Half</span><br />
+          <input
+            id="secondsGame"
+            type="number"
+            value="500"
+            min="0"
+            max="3600"
+            step="60"
+          />
+          <span class="badge badge-secondary">Seconds left in Game</span><br />
+        </div>
+        <div class="col-6">
+          <h5 class="input">
+            Enter the game conditions
+          </h5>
 
-        <input
-          id="yardline"
-          type="number"
-          value="50"
-          min="0"
-          max="100"
-          step="1"
-        />
-        <span class="badge badge-secondary">Ball on Yardline</span><br />
+          <input
+            id="yardline"
+            type="number"
+            value="50"
+            min="0"
+            max="100"
+            step="1"
+          />
+          <span class="badge badge-secondary">Ball on Yardline</span><br />
 
-        <input id="down" type="number" value="1" min="1" max="4" step="1" />
-        <span class="badge badge-secondary">Down</span><br />
-        <input
-          id="ydstogo"
-          type="number"
-          value="10"
-          min="0"
-          max="99"
-          step="1"
-        />
-        <span class="badge badge-secondary">Yards to Go</span><br />
-        <input
-          id="scoreDif"
-          type="number"
-          value="0"
-          min="-100"
-          max="100"
-          step="1"
-        />
-        <span class="badge badge-secondary">Score Difference</span><br /><br />
-        <div class="container" .mt-5>
-          <button
-            id="submit-data-btn"
-            type="button"
-            class="btn btn-primary btn-lg"
-          >
-            Submit
-          </button>
+          <input id="down" type="number" value="1" min="1" max="4" step="1" />
+          <span class="badge badge-secondary">Down</span><br />
+          <input
+            id="ydstogo"
+            type="number"
+            value="10"
+            min="0"
+            max="99"
+            step="1"
+          />
+          <span class="badge badge-secondary">Yards to Go</span><br />
+          <input
+            id="scoreDif"
+            type="number"
+            value="0"
+            min="-100"
+            max="100"
+            step="1"
+          />
+          <span class="badge badge-secondary">Score Difference</span
+          ><br /><br />
+          <div class="container" .mt-5>
+            <button
+              id="submit-data-btn"
+              type="button"
+              class="btn btn-primary btn-lg"
+            >
+              Submit
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 
   <div class="line"></div>
@@ -121,8 +124,7 @@
   <h2 class="input">Predicted Play</h2>
   <div id="predictionOutput">
     <img id="output" />
-    {{ prediction }}
-    <img src= "static/images/"{{ prediction }}".gif">
+    <!-- <p>There are my {{ prediction }}</p> -->
   </div>
 
   <div class="line"></div>

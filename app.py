@@ -1,12 +1,12 @@
 
 
 import os
-
+from sklearn.externals import joblib
 import pandas as pd
 import numpy as np
 
-from flask import Flask, jsonify, render_template
-#from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, jsonify, render_template, request
+# from flask_sqlalchemy import SQLAlchemy
 
 # To Return json of scores
 import json
@@ -14,20 +14,42 @@ import json
 app = Flask(__name__)
 
 
+def predictPlay(inputValue):
+    input = []
+    for value in inputValue.values():
+        input.append(value)
+        input_df = pd.DataFrame(input)
+        input_df.rename(columns={0: 'input_value'}, inplace=True)
+        to_predict = input_df.transpose()  # or df1.transpose()
+        loaded_model = joblib.load(
+            'resources/next_play_predictor_LogReg.pkl')
+    # loaded_model = pickle.load(open("/resoureces/next_play_predictor_LogReg.pkl","rb"))
+        result = loaded_model.predict(to_predict)
+        return result
+
+
 @app.route("/")
 def index():
     """Returns the homepage"""
     return render_template("index.html")
+
 
 @app.route("/contact-info")
 def show_contact():
     """Returns the contact info page"""
     return render_template("contacts.html")
 
+
 @app.route("/visualizations")
 def show_visualizations():
     """Returns the visualizations"""
     return render_template("visualizations.html")
+
+@app.route("/demoday")
+def demo_day():
+    """Returns the model building page"""
+    return render_template("demoday.html")
+
 
 @app.route("/model-build")
 def show_model():
@@ -54,53 +76,33 @@ def model_scores():
     # We can then find the data for the requested date and send it back as json
     return json.dumps(file_data)
 
-@app.route("/predictions")
+@app.route("/predictions", methods=["GET", "POST"])
 def make_predictions():
-     """Returns prediction page"""
-     return render_template("predictions.html")
-
-
-def predictPlay(inputValue):
-    input = []
-    for value in inputvalue.values():
-          input.append(value)
-
-    input_df = pd.DataFrame(input)
-    input_df.rename(columns = {0:'input_value'}, inplace=True)
-    to_predict = input_df.transpose() # or df1.transpose()
-    loaded_model = joblib.load('resources/next_play_predictor_LogReg.pkl')
-     # loaded_model = pickle.load(open("/resoureces/next_play_predictor_LogReg.pkl","rb"))
-    result = loaded_model.predict(to_predict)
-
-    return result
-
-@app.route('/result', methods = ['POST'])
-def result():
+    """Returns prediction page"""
+    prediction = "pass"
     if request.method == 'POST':
+        print("RECEIVE ROUTE REQUEST!!!!!!!")
+        inputValue = request.data
+        jsontest = request.get_json()
 
-        # any transforms
-        modelValue = request.form.to_dict()
-        modelValue = list(modelValue.values())
-        modelValue = list(map(int, modelValue))
+        #    prediction = predictPlay(modelValue)
 
-        prediction = predictPlay(modelValue)
-
-        return render_template("predictions.html",prediction=prediction)
+    return render_template("predictions.html", prediction=prediction)
 
 
-# @app.route("/score")
-# def score():
-#     print(request.args)
-#     if(request.args):
-#         x_input, predictions = make_prediction(request.args(modelValue))
-#         print(x_input)
-#         return render_template('predictions.html', response=prediction)
-#     else:
-#         #For first load, request.args will be an empty ImmutableDict
-#         # type. If this is the case we need to pass an empty string
-#         # into make_prediction function so no errors are thrown.
-#         x_input, predictions = make_prediction('')
-#         return render_template('predictions.html', response=null)
+# @app.route('/result', methods = ['POST'])
+# def result():
+#     if request.method == 'POST':
+
+#         # any transforms
+#         modelValue = request.form.to_dict()
+#         modelValue = list(modelValue.values())
+#         modelValue = list(map(int, modelValue))
+
+#         prediction = predictPlay(modelValue)
+
+#         return render_template("predictions.html",prediction=prediction)
+
 
 if __name__ == "__main__":
-     app.run()
+    app.run()
