@@ -262,6 +262,23 @@ select {
   padding-bottom: 25px;
 }
 
+/* unvisited link */
+.hyperlink:link {
+  color: blue;
+}
+
+/* visited link */
+.hyperlink:visited {
+  color: blue;
+}
+
+.hyperlink:hover {
+  text-decoration: underline;
+}
+
+.hyperlink:active {
+  text-decoration: underline;
+}
 /* input,
 textarea {
   border: 1px solid #eeeeee;

@@ -21,7 +21,7 @@
 
   <p>
     In order to create a model that can predict which play is the likeliest to
-    be called, we resonned that any information relating the the state prior to
+    be called, we resonned that any information relating to the state prior to
     calling the play would be critical in informing the decision to run a pass
     or a run play, or alternatively to kick a field goal or punt. We limited our
     predictions to either pass or run plays for several reasons:
@@ -34,54 +34,61 @@
       kick, e.g. long, short or onside kick.
     </li>
     <li class="features" style="padding-bottom: 16px;">
-      Edge cases, such as QB kneel or spiking where also dropped as these
-      decisions are fairly obvious given a specific set of circumstances.
+      Edge cases, such as QB kneel or spiking where also dropped as occur under specific circumstances.
     </li>
     <li class="features" style="padding-bottom: 16px;">
-      Punts and field goals typically occur on 4th down and the decisions to run
-      either play is largely determined by field positioning
+      Punts and field goals occur almost exclusively on 4th down and the decision to run
+      either play is largely determined by field positioning.
     </li>
   </ol>
 
-  <p>
-    Our next task was to choose the features which, as discussed above, would be
-    predicted to influence play calling.
-  </p>
+  <div class="row">
+  <div class="col-sm-6">
+    <h5>Before</h5>
+    <div>
+    <iframe width="500px" height="500px" frameborder="0" scrolling="no" src="//plot.ly/~rogerlefort/4.embed?showlink=false"></iframe>
+</div>
+  </div>
+  <div class="col-sm-6">
+    <h5>After</h5>
+    <div>
+    <iframe width="500px" height="500px" frameborder="0" scrolling="no" src="//plot.ly/~rogerlefort/59.embed?showlink=false"></iframe>
+</div>
 
+  </div>
+  </div>
+<br>
+  <h3>Feature Selection</h3>
+  <p>
+    The original dataset contains 254! features. After cleaning the data and supplementing with weather information, we focused on features which, as discussed above, which would be predicted to influence play calling.
+  </p>
   <h4>Intrinsic Features</h4>
   <p>
     The goal of a play is to gain as many yards as possible, 10 at a minimum,
     generally over the course of 3 downs. As such we would expect down and
     distance to go to be critical in deciding which play to call. Passes
-    typically net more yards, but short distances are typically easier to obtain
-    running the ball. Time remaining in the game and the score differential are
+    net more yards on average, but short distances are typically easier to obtain
+    running the ball. Time remaining in the half or in the game and score differential are
     also a crucial considerations. Finally, we reasoned that field positioning
     could be important, but largely dependent on other factors, such as time
     remaining and the number of time outs a team possesses, which we also
-    excluded as a feature. We settled on the following features:
+    included as our inital set of feature:
   </p>
   <ul>
-    <li class="features" style="padding-bottom: 16px;">
-      Time remaining in the game
-    </li>
-    <li class="features" style="padding-bottom: 16px;">
-      Time remaining in the half
-    </li>
-    <li class="features" style="padding-bottom: 16px;">Field position</li>
-    <li class="features" style="padding-bottom: 16px;">Score differential</li>
-    <li class="features" style="padding-bottom: 16px;">
-      Yards to go to a 1st down or touchdown
-    </li>
-    <li class="features" style="padding-bottom: 16px;">Current Down</li>
+    <li class="features" style="padding-bottom: 16px;">Yard line (yardline_100)</li>
+    <li class="features" style="padding-bottom: 16px;">Quarter (qtr)</li>
+    <li class="features" style="padding-bottom: 16px;">Time remaining in the half (half_seconds_remaining)</li>
+    <li class="features" style="padding-bottom: 16px;">Time remaining in the game (game_seconds_remaining)</li>
+    <li class="features" style="padding-bottom: 16px;"> Current down (down)</li>
+    <li class="features" style="padding-bottom: 16px;">Yards-to-go to 1st down or TD (ydstogo)</li>
+    <li class="features" style="padding-bottom: 16px;">Timeouts remaing, possession team (posteam_timeouts_remaining)</li>
+    <li class="features" style="padding-bottom: 16px;">Timeouts remaing, defending team (defteam_timeouts_remaining)</li>
+    <li class="features" style="padding-bottom: 16px;">Score differential (score_differential)</li>
   </ul>
 
   <h4>Extrinsic Features</h4>
   <p>
-    As discussed earlier, weather plays a critical part in decidinf which play
-    to call. For example, under heavy rains or strong winds, loss of grip and
-    visibility may favor running plays. We sought out to detemine whether
-    weather conditions could improve our learning model. The following game time
-    weather parameters were included:
+    As discussed earlier, weather plays a critical part in deciding which play to call. For example, under heavy rains or strong winds, loss of grip and visibility may favor running plays. We sought out to detemine whether weather conditions could improve our learning model. The following game time weather parameters were included:
   </p>
   <ul>
     <li class="features" style="padding-bottom: 16px;">Temperature</li>
@@ -92,9 +99,26 @@
     <li class="features" style="padding-bottom: 16px;">Humidity</li>
   </ul>
 
+  <p>
+    To facilitate the exploratory data analysis phase, we used the extremely useful library, <a class= 'hyperlink' href='https://github.com/pandas-profiling/pandas-profiling'>pandas_profiling</a>.
+  </p>
+
+  <p>For each feature in our dataset, the following statistics - if relevant for the column type - were obtained --available in an interactive <a class='hyperlink' href='/feature-profile'>HTML report</a>:</p>
+<ul>
+  <li class="features" style="padding-bottom: 16px;"><b>Essentials</b>: type, unique values, missing values</li>
+  <li class="features" style="padding-bottom: 16px;"><b>Quantile statistics</b> like minimum value, Q1, median, Q3, maximum, range, interquartile range</li>
+  <li class="features" style="padding-bottom: 16px;"><b>Descriptive statistics</b> like mean, mode, standard deviation, sum, median absolute deviation, coefficient of variation, kurtosis, skewness</li>
+  <li class="features" style="padding-bottom: 16px;"><b>Most frequent values</b></li>
+  <li class="features" style="padding-bottom: 16px;"><b>Histogram</b></li>
+  <li class="features" style="padding-bottom: 16px;"><b>Correlations</b> highlighting of highly correlated variables, Spearman and Pearson matrixes</li>
+</ul>
+<p>None of the features we intuitively selected showed any significant correlation. However, a number of features include several outliers.</p>
+<div>
+<!-- <iframe id="iframe" src="/box-plot" width="800px" height="500px" scrolling="no" frameborder="0"></iframe> -->
+</div>
   <div class="line"></div>
 
-  <h4>Algorithm</h4>
+  <h4>Models</h4>
   <p>
     Our decision to limit the play types reduced this to a classification: Given a set of pre-existing game and weather conditions, what is the predicted play call. After cleaning and aggregating the data, we ran multiple algorithms:
   </p>
