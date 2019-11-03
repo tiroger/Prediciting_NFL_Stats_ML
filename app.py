@@ -45,10 +45,10 @@ def show_visualizations():
     """Returns the visualizations"""
     return render_template("visualizations.html")
 
-@app.route("/demoday")
-def demo_day():
-    """Returns the model building page"""
-    return render_template("demoday.html")
+# @app.route("/demoday")
+# def demo_day():
+#     """Returns the model building page"""
+#     return render_template("demoday.html")
 
 
 @app.route("/model-build")
