@@ -12,7 +12,7 @@ var svg = d3.select("#dropdown-viz").append("svg")
 
 
 // Load and munge data, then make the visualization.
-var modelScores = ["Train Score", "Test Score"];
+var modelScores = ["Test Score"];
 var url = "/scores";
 // var promise = ;
 
@@ -22,11 +22,13 @@ d3.json(url).then(function(data){
   var modelMap = {};
   data.forEach(function(d) {
     var model = d.model;
-    // console.log(model)
+    console.log(model)
+    var accuracy = d.accuracy
+    console.log(accuracy)
     modelMap[model] = [];
     modelScores.forEach(function(score) {
       modelMap[model].push(+d[score]);
-      console.log(modelMap)
+      // console.log(modelMap)
     });
   })
 // makeVis(modelMap);

@@ -266,9 +266,20 @@ select {
     DROP DOWN
 ----------------------------------------------------- */
 
-.dropdown {
-  padding-bottom: 25px;
+#itemImage {
+  padding-top:5px;
 }
+
+/* .image-container {
+  padding-top:2px;
+} */
+/* .dropdown {
+  padding-bottom: 5px;
+} */
+
+/* ---------------------------------------------------
+    HYPERLINKS
+----------------------------------------------------- */
 
 /* unvisited link */
 .hyperlink:link {
@@ -285,6 +296,14 @@ select {
 }
 
 .hyperlink:active {
+  text-decoration: underline;
+}
+
+.subtle-hyperlink {
+  font-weight: 500;
+}
+
+.subtle-hyperlink:hover {
   text-decoration: underline;
 }
 /* input,
