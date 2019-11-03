@@ -230,9 +230,10 @@
   <h4>Model Improvement</h4>
   <div>
     <p>
-      One of the potential issues in training our model, is class imbalance.
+      One of the potential issues in training our model, is class imbalance. To tackle this, we decided to generate synthetic data, using the <a href ='https://jair.org/index.php/jair/article/view/10302/24590' class=subtle-hyperlink>SMOTE (Synthetic Minority Over-sampling Technique) method</a>, which consists in creating new synthetic points from the minority class to increase its cardinality. It works by creating synthetic samples from the minor class instead of creating copies. The algorithm selects two or more similar instances (using a distance measure) and perturbing an instance one attribute at a time by a random amount within the difference to the neighboring instances.
     </p>
   </div>
+
 
   <div class="line"></div>
 
@@ -241,6 +242,7 @@
   <div id="dropdown-viz"></div> -->
 
 <div class="line"></div>
+<h3>Assessing Team Predictability</h3>
 
 
 <div class="line"></div>
