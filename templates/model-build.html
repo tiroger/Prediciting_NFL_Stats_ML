@@ -21,10 +21,10 @@
 
   <p>
     In order to create a model that can predict which play is the likeliest to
-    be called, we resonned that any information relating the the state prior to
+    be called, we reasoned that any information relating to the state prior to
     calling the play would be critical in informing the decision to run a pass
     or a run play, or alternatively to kick a field goal or punt. We limited our
-    predictions to either pass or run plays for several reasons:
+    predictions to one these for several reasons:
   </p>
 
   <ol>
@@ -34,54 +34,61 @@
       kick, e.g. long, short or onside kick.
     </li>
     <li class="features" style="padding-bottom: 16px;">
-      Edge cases, such as QB kneel or spiking where also dropped as these
-      decisions are fairly obvious given a specific set of circumstances.
+      Edge cases, such as QB kneel or spiking where also dropped as occur under specific circumstances.
     </li>
-    <li class="features" style="padding-bottom: 16px;">
-      Punts and field goals typically occur on 4th down and the decisions to run
-      either play is largely determined by field positioning
-    </li>
+    <!-- <li class="features" style="padding-bottom: 16px;">
+      Punts and field goals occur almost exclusively on 4th down and the decision to run
+      either play is largely determined by field positioning.
+    </li> -->
   </ol>
 
-  <p>
-    Our next task was to choose the features which, as discussed above, would be
-    predicted to influence play calling.
-  </p>
+  <div class="row">
+  <div class="col-sm-6">
+    <h5>Play Breakdown - All Plays</h5>
+    <div>
+    <iframe width="500px" height="500px" frameborder="0" scrolling="no" src="//plot.ly/~rogerlefort/4.embed?showlink=false"></iframe>
+</div>
+  </div>
+  <div class="col-sm-6">
+    <h5>Play Breakdown - Pass, Run, FG, Punt</h5>
+    <div>
+    <iframe width="500px" height="500px" frameborder="0" scrolling="no" src="//plot.ly/~rogerlefort/113.embed?showlink=false"></iframe>
+</div>
 
+  </div>
+  </div>
+<br>
+  <h3>Feature Selection</h3>
+  <p>
+    The original dataset contains 254! features. After cleaning the data and supplementing with weather information, we focused on features, which would be predicted to influence play calling.
+  </p>
   <h4>Intrinsic Features</h4>
   <p>
     The goal of a play is to gain as many yards as possible, 10 at a minimum,
-    generally over the course of 3 downs. As such we would expect down and
-    distance to go to be critical in deciding which play to call. Passes
-    typically net more yards, but short distances are typically easier to obtain
-    running the ball. Time remaining in the game and the score differential are
+    generally over the course of 3 downs, as a team marches down the field towards scoring a touchdown or a fieldgoal. As such we would expect "down" and
+    "distance-to-go" to be critical in deciding which play to call. Passes
+    net more yards on average, but short distances are typically easier to obtain
+    running the ball. Time remaining in the half or in the game and score differential are
     also a crucial considerations. Finally, we reasoned that field positioning
     could be important, but largely dependent on other factors, such as time
     remaining and the number of time outs a team possesses, which we also
-    excluded as a feature. We settled on the following features:
+    included as our inital set of feature:
   </p>
   <ul>
-    <li class="features" style="padding-bottom: 16px;">
-      Time remaining in the game
-    </li>
-    <li class="features" style="padding-bottom: 16px;">
-      Time remaining in the half
-    </li>
-    <li class="features" style="padding-bottom: 16px;">Field position</li>
-    <li class="features" style="padding-bottom: 16px;">Score differential</li>
-    <li class="features" style="padding-bottom: 16px;">
-      Yards to go to a 1st down or touchdown
-    </li>
-    <li class="features" style="padding-bottom: 16px;">Current Down</li>
+    <li class="features" style="padding-bottom: 16px;">Yard line (yardline_100)</li>
+    <li class="features" style="padding-bottom: 16px;">Quarter (qtr)</li>
+    <li class="features" style="padding-bottom: 16px;">Time remaining in the half (half_seconds_remaining)</li>
+    <li class="features" style="padding-bottom: 16px;">Time remaining in the game (game_seconds_remaining)</li>
+    <li class="features" style="padding-bottom: 16px;"> Current down (down)</li>
+    <li class="features" style="padding-bottom: 16px;">Yards-to-go to 1st down or TD (ydstogo)</li>
+    <li class="features" style="padding-bottom: 16px;">Timeouts remaing, possession team (posteam_timeouts_remaining)</li>
+    <li class="features" style="padding-bottom: 16px;">Timeouts remaing, defending team (defteam_timeouts_remaining)</li>
+    <li class="features" style="padding-bottom: 16px;">Score differential (score_differential)</li>
   </ul>
 
   <h4>Extrinsic Features</h4>
   <p>
-    As discussed earlier, weather plays a critical part in decidinf which play
-    to call. For example, under heavy rains or strong winds, loss of grip and
-    visibility may favor running plays. We sought out to detemine whether
-    weather conditions could improve our learning model. The following game time
-    weather parameters were included:
+    As discussed earlier, weather plays a critical part in deciding which play to call. For example, under heavy rains or strong winds, loss of grip and visibility may favor running plays. We sought out to detemine whether weather conditions could improve our learning model. The following game time weather parameters were included:
   </p>
   <ul>
     <li class="features" style="padding-bottom: 16px;">Temperature</li>
@@ -92,35 +99,151 @@
     <li class="features" style="padding-bottom: 16px;">Humidity</li>
   </ul>
 
-  <div class="line"></div>
-
-  <h4>Algorithm</h4>
   <p>
-    Our decision to limit the play types reduced this to a classification: Given a set of pre-existing game and weather conditions, what is the predicted play call. After cleaning and aggregating the data, we ran multiple algorithms:
-  </p>
-  <ul>
-    <li class="features" style="padding-bottom: 16px;">Logistic Regression</li>
-    <li class="features" style="padding-bottom: 16px;">Bagging meta-estimator</li>
-    <li class="features" style="padding-bottom: 16px;">AdaBoost</li>
-    <li class="features" style="padding-bottom: 16px;">XGBoost</li>
-    <li class="features" style="padding-bottom: 16px;">Decision Tree</li>
-    <li class="features" style="padding-bottom: 16px;">Random Forest</li>
-  </ul>
+    To facilitate the exploratory data analysis phase, we used the extremely useful library, <a class= 'hyperlink' href='https://github.com/pandas-profiling/pandas-profiling'>pandas_profiling</a>. For each feature in our dataset, the following statistics - if relevant for the column type - were obtained --available in an interactive <a class='hyperlink' href='/feature-profile'>HTML report</a>:</p>
+<ul>
+  <li class="features" style="padding-bottom: 16px;"><b>Essentials</b>: type, unique values, missing values</li>
+  <li class="features" style="padding-bottom: 16px;"><b>Quantile statistics</b> like minimum value, Q1, median, Q3, maximum, range, interquartile range</li>
+  <li class="features" style="padding-bottom: 16px;"><b>Descriptive statistics</b> like mean, mode, standard deviation, sum, median absolute deviation, coefficient of variation, kurtosis, skewness</li>
+  <li class="features" style="padding-bottom: 16px;"><b>Most frequent values</b></li>
+  <li class="features" style="padding-bottom: 16px;"><b>Histogram</b></li>
+  <li class="features" style="padding-bottom: 16px;"><b>Correlations</b> highlighting of highly correlated variables, Spearman and Pearson matrixes</li>
+</ul>
+<p>None of the features we intuitively selected showed any significant correlation. However, a number of features include several outliers, especially the score differential. We can verify that these extreme values are from actual games, and not entry errors. For example, the largest score differential (59 points) was from an <a href='https://www.espn.com/nfl/game?gameId=291018017' class='subtle-hyperlink'>October 19th, 2009 game</a> between the New Englan Patriots and the Tennessee Titans, which ended with a score of 59-0 in favor of the Patriots. Interestingly, the largest distance-to-go value (50) occured on a 3rd and 50 situation, in a game between the Washington Redskins and the Cincinnati Bengals on <a href='https://www.espn.com/nfl/playbyplay?gameId=320923028' class='subtle-hyperlink'>September 23rd, 2012.</a></p>
+<div>
+  <div class="row">
+  <div class="col-sm-6">
+    <h5>Correlation Matrix</h5>
+    <div>
+      <img src='/static/images/correlation_matrix.png' alt="correlation matrix" style="width:500px;height:500px;"/>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <h5>Feature Box Plot</h5>
+    <div>
+    <img src='/static/images/box_plot_only_outliers.png' alt="box plot" style="width:500px;height:500px;"/>
+    </div>
+  </div>
+  </div>
+</div>
+  <div class="line"></div>
+
+  <h3>Models</h3>
+  <div class="row">
+  <div class="col-sm-5">
+    <!-- <h5>Before</h5> -->
+    <div>
+      <p>
+        Since there are four possible play outcomes, this boils down to a multi-class classification problem. Given a set of pre-existing game and weather conditions, what is the predicted play call? After cleaning and aggregating the data, we scaled the features and ran multiple algorithms, encompassing regression, ensemble and boosting classifiers:
+      </p>
+      <ul>
+        <li class="features" style="padding-bottom: 16px;">Logistic Regression</li>
+        <li class="features" style="padding-bottom: 16px;">Logistic Regression w/ Cross Validation</li>
+        <li class="features" style="padding-bottom: 16px;">Stochastic Gradient Descent (SDG)</li>
+        <li class="features" style="padding-bottom: 16px;">K-Nearest Neighbor</li>
+        <li class="features" style="padding-bottom: 16px;">Bagging meta-estimator</li>
+        <li class="features" style="padding-bottom: 16px;">AdaBoost</li>
+        <li class="features" style="padding-bottom: 16px;">XGBoost</li>
+        <li class="features" style="padding-bottom: 16px;">Decision Tree</li>
+        <li class="features" style="padding-bottom: 16px;">Extra Tree</li>
+        <li class="features" style="padding-bottom: 16px;">Random Forest</li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-sm-7">
+    <h5>Accuracy Scores</h5>
+    <!-- <h5>After</h5> -->
+    <!-- <div> -->
+    <iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~rogerlefort/108.embed?showlink=false"></iframe>
+    <!-- <iframe width="600" height="600" frameborder="0" scrolling="no" src="//plot.ly/~rogerlefort/93.embed?showlink=false"></iframe> -->
+    <!-- </div> -->
+  </div>
+  </div>
+  <br>
+  <div>
+    <h4>Model Diagnosis</h4>
+    <p>
+      We found that the Random Forest classifer gave the best accuracy score (71.0%), followed closely by the Extra Tree classifier (70.3%). However, because of the imbalanced nature of our classes, accuracy score is not necessarily useful to evaluate the overall performance of the model (i.e. How well does the model recognize each class?). To get a better understanding of the model's performance, we also plotted the confusion matrix, which tells how well the models does for each class. The confusion matrix also gives us three important metrics: precision, recall and F<sub>1</sub> score.</p>
+      <div class="row">
+      <div class="col-sm-7">
+      <div>
+      <ul>
+         <li class="features" style="padding-bottom: 16px;"><b>Precision:</b> What proportion of <u>predicted</u> positives is truly positive? For example, the precision for the class "pass" is the number of correctly predicted pass plays out of all predicted pass plays.</li>
+         <li class="features" style="padding-bottom: 16px;"><b>Recall:</b> What proportion of actual positives is correctly classified? For example, of the plays that are actually runs, how many were correctly classified as runs?</li>
+         <li class="features" style="padding-bottom: 16px;"><b>F<sub>1</sub> score:</b> The harmonic mean of the precision and recall.</li>
+       </ul>
+    </div>
+    </div>
+    <div class="col-sm-5">
+      <img src="/static/images/precision_recall.png" id='matrix' style="width:420px;height:322px;"/>
+    </div>
+    </div>
+
+  <script>
+ window.onload = function() {
+     document.getElementById("itemImage").onchange = showFormatImage;
+  };
+ function showFormatImage() {
+    var image = document.getElementById("changeImage");
+    image.src = $('select[name=itemImage] option:selected').attr('data-img');
+    return false;
+ }
+  </script>
+
+  <!-- <img src="/static/images/forrest_cm_all_plays_percent.svg" id='changeImage'style="width:600px;height:600px;"/> -->
+
+  <div>
+    <div class="row">
+    <div class="col-sm-6">
+      <div class='image-container'>
+      <select id="itemImage" name="itemImage">
+        <option data-img="/static/images/forrest_cm_all_plays.png">Confusion Matrix</option>
+        <option data-img="/static/images/forrest_pred_error_all_plays.png">Prediction Error</option>
+        <option data-img="/static/images/forrest_all_plays.png">Classification Report</option>
+        <!-- <option data-img="/static/images/forrest_ROCAUC_all_plays.png">AUCROC</option> -->
+      </select>
+    </div>
+      <div>
+        <img src="/static/images/forrest_cm_all_plays.png" id='changeImage' style="width:500px;height:371px;"/>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div>
+        <br>
+        <br>
+      <p>
+        From the confusion matrix, we can see that the model performs extremely well when it comes to classifying punts and field goals, with precision scores of 96% and 89%, respectively, which is the percentage of predicted punts and field goals that were actually such. Conversely, the recall score was 98% and 91%, respectively, indicating the percentages of actual punts and field goals that were actually correctly classified. This suggests that the model is good at handling both of these classes.
+      </p>
+      <p>
+        For pass plays the model's performance drops significantly, with precision and recall scores of 72% and 74%, respectively. This means that 72% of predicted pass plays were actually pass plays and 74% of actual pass plays were corretly classified. The Prediction Error Chart shows that ~25% of pass plays were classified as "runs".
+      </p>
+      </div>
+    </div>
+    </div>
+    </div>
+    <div>
+        <p>
+          As for runs, the models was able to correctly classify only 60% of run plays (recall). 62% of predicted runs were in fact run plays (precision), as the model struggled to differentiate from pass plays, as seen in the Prediction Error chart.
+        </p>
+    </div>
+  </div>
+  <h4>Model Improvement</h4>
+  <div>
+    <p>
+      One of the potential issues in training our model, is class imbalance. To tackle this, we decided to generate synthetic data, using the <a href ='https://jair.org/index.php/jair/article/view/10302/24590' class=subtle-hyperlink>SMOTE (Synthetic Minority Over-sampling Technique) method</a>, which consists in creating new synthetic points from the minority class to increase its cardinality. It works by creating synthetic samples from the minor class instead of creating copies. The algorithm selects two or more similar instances (using a distance measure) and perturbing an instance one attribute at a time by a random amount within the difference to the neighboring instances.
+    </p>
+  </div>
+
 
   <div class="line"></div>
 
 
-
-  <script type='text/javascript' src='https://prod-useast-a.online.tableau.com/javascripts/api/viz_v1.js'></script>
-  <div class='tableauPlaceholder' style='width: 1200px; height: 647px;'><object class='tableauViz' width='1200' height='647' style='display:none;'><param name='host_url' value='https%3A%2F%2Fprod-useast-a.online.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='&#47;t&#47;rogerlefort' /><param name='name' value='ModelScores&#47;Sheet2' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='showAppBanner' value='false' /><param name='filter' value='iframeSizedToWindow=true' /></object></div>
-
-<div class="line"></div>
-
-<script type='text/javascript' src='https://prod-useast-a.online.tableau.com/javascripts/api/viz_v1.js'></script><div class='tableauPlaceholder' style='width: 1200px; height: 552px;'><object class='tableauViz' width='1200' height='552' style='display:none;'><param name='host_url' value='https%3A%2F%2Fprod-useast-a.online.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='&#47;t&#47;rogerlefort' /><param name='name' value='Weather&#47;Sheet2' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='showAppBanner' value='false' /><param name='filter' value='iframeSizedToWindow=true' /></object></div>
+  <!-- <div class="dropdown"></div>
+  <div id="dropdown-viz"></div> -->
 
 <div class="line"></div>
+<h3>Assessing Team Predictability</h3>
 
-<script type='text/javascript' src='https://prod-useast-a.online.tableau.com/javascripts/api/viz_v1.js'></script><div class='tableauPlaceholder' style='width: 1200px; height: 552px;'><object class='tableauViz' width='1200' height='552' style='display:none;'><param name='host_url' value='https%3A%2F%2Fprod-useast-a.online.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='&#47;t&#47;rogerlefort' /><param name='name' value='Featureimportace&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='showAppBanner' value='false' /><param name='filter' value='iframeSizedToWindow=true' /></object></div>
 
 <div class="line"></div>
 
@@ -130,16 +253,54 @@
   <div id="container">
 
 
-    <script>
-        d3.json('/scores', function(data) {
-            console.log(data);
-            });
-    </script>
+
+    <!-- <script>
+    var modelScores = ["Train Score", "Test Score"];
+    var url = "/scores";
+    var promise = d3.json(url);
+
+    // Getting data from table route
+    promise.then(function(data){
+      // console.log(data);
+
+    	// create the drop down menu of cities
+    	var selector = d3.select("body")
+    		.append("select")
+    		.attr("id", "model")
+    		.selectAll("option")
+    		.data(data)
+    		.enter().append("option")
+    		.text(function(d) { return d.model; })
+    		.attr("value", function (d, i) {
+    			return i;
+          console.log(d.model)
+    		});
+        // generate a random index value and set the selector to the city
+      // at that index value in the data array
+      var index = Math.round(Math.random() * data.length);
+      d3.select("#model").property("selectedIndex", index);
+
+      // append a paragraph tag to the body that shows the city name and it's population
+      d3.select("body")
+            .append("p")
+            .data(data)
+            .text(function(d){
+              return data[index]['train_score'];
+            })
+
+      });
+    </script> -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
   </div>
 
   <div class="line"></div>
 
 
+
 </div>
+
+<!-- My Scripts -->
+<script src="{{ url_for('static', filename='js/barChart.js') }}"></script>
+<!-- D3 I HATE YOU! -->
+<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 {% endblock %}

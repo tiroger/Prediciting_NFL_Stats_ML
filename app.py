@@ -45,16 +45,27 @@ def show_visualizations():
     """Returns the visualizations"""
     return render_template("visualizations.html")
 
-@app.route("/demoday")
-def demo_day():
-    """Returns the model building page"""
-    return render_template("demoday.html")
+# @app.route("/demoday")
+# def demo_day():
+#     """Returns the model building page"""
+#     return render_template("demoday.html")
 
 
 @app.route("/model-build")
 def show_model():
     """Returns the model building page"""
     return render_template("model-build.html")
+
+@app.route("/feature-profile")
+def show_profile():
+    """Returns the feature profile page"""
+    return render_template("feature_profile.html")
+
+# @app.route("/box-plot")
+# def show_box():
+#     """Returns the feature profile page"""
+#     return render_template("figure_68.html")
+
 
 @app.route("/scores")
 def model_scores():

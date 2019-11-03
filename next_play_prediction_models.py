@@ -1,64 +1,129 @@
 # Next play Predictions
 
 # Importing libraries and modules
+
+# Data Wrangling
 import pandas as pd
 import numpy as np
-import os
+import pandas_profiling
+
+
+# Plotting libraries
 import matplotlib.pyplot as plt
 import seaborn as sns
+
+# Machine learning libraries
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, PowerTransformer #applies a power transformation to each feature to make the data more Gaussian-like.
+from sklearn.model_selection import StratifiedKFold
+
+##############################
+#     DATA PROCESSING        #
+##############################
+
 
 # Opening dataset
 play_by_play = pd.read_csv('resources/final_table_for_model_build.csv')
 play_by_play.head()
 
-
-# Building models without weather data
-
 # Keeping only play and run plays
-play_by_play.play_type.unique()
+play_by_play.play_type.value_counts()
+# Plotting play types
+x_pos = play_by_play.play_type.unique()
+y_values = play_by_play.play_type.value_counts()
+plt.ylabel('Play Type')
+plt.xlabel('Number of Plays')
+plt.title('Play Breakdown')
+plt.barh(x_pos, y_values, color='SkyBlue')
+plt.savefig('plots/play_breakdown_pre.png', dpi=600)
+plt.tight_layout()
+fig.show()
+
 only_productive_plays = play_by_play[(play_by_play.play_type == 'pass') | (play_by_play.play_type == 'run')]
 # Removing duplicates
 only_productive_plays.drop_duplicates()
 only_productive_plays.head()
 
+# Plotting play types with only passes and runs
+x_pos = only_productive_plays.play_type.unique()
+y_values = only_productive_plays.play_type.value_counts()
+plt.ylabel('Play Type')
+plt.xlabel('Number of Plays')
+plt.title('Play Breakdown')
+plt.barh(x_pos, y_values, color='teal')
+plt.tight_layout()
+plt.savefig('plots/play_breakdown_post.png', dpi=600)
+fig.show()
 
-# Data Pre-processing
 
-only_productive_plays.columns
 # Selecting features
-X = only_productive_plays[['yardline_100', 'qtr', 'half_seconds_remaining',
-       'game_seconds_remaining', 'down', 'ydstogo',
-       'posteam_timeouts_remaining', 'defteam_timeouts_remaining',
-       'score_differential']]
-y = only_productive_plays.play_type
-
+X = only_productive_plays.drop(columns=['play_type', 'desc'])
 X.head()
-
+y = only_productive_plays.play_type
 y.head()
 print(X.shape)
 print(y.shape)
 
+
+########################################
+###         FEATURE ENGINEERING      ###
+########################################
+
+
+feature_profile = X.profile_report()
+feature_profile
+feature_profile.to_file(output_file="feature_profile_preprocessing.html")
+
+# Determining highly correlated feature_names
+rejected_variables = feature_profile.get_rejected_variables(threshold=0.8)
+rejected_variables
+
+# Balancing the dataset
+# importing SMOTE
+from imblearn.over_sampling import SMOTE
+from collections import Counter
+
+# applying SMOTE to our data and checking the class counts
+X_resampled, y_resampled = SMOTE().fit_resample(X, y)
+X_resampled.shape
+y_resampled.shape
+
+
+pt = PowerTransformer()
+pt.fit(X_resampled)
+X_resampled_transformed = pt.transform(X_resampled)
+print(sorted(Counter(y_resampled).items()))
+
+X_resampled_transformed.shape
+y_resampled.shape
+
+len(X_resampled_transformed)
+len(y_resampled)
+
+
+
 # Splitting data into training and testing
-from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42, stratify=y)
+X_train, X_test, y_train, y_test = train_test_split(X_resampled_transformed, y_resampled, random_state=42)
 
-# Saving training testing datasets as csv for future use
-X_train.to_csv('resources/X_train', index=False)
-X_test.to_csv('resources/X_test', index=False)
-y_train.to_csv('resources/y_train', index=False)
-y_test.to_csv('resources/y_test', index=False)
+X_train.shape
+y_train.shape
 
-# Scaling the dataset
-from sklearn.preprocessing import LabelEncoder, MinMaxScaler
-X_scaler = MinMaxScaler().fit(X_train)
-X_train = X_scaler.transform(X_train)
-X_test = X_scaler.transform(X_test)
+# Saving training and testing datasets as csv for future use
+from tempfile import TemporaryFile
+outfile = TemporaryFile()
+np.save(outfile, X_train)
+np.save(outfile, X_test)
+np.save(outfile, y_train)
+np.save(outfile, y_test)
+
 
 ########################################
 ###         LOGISTIC REGRESSION      ###
 ########################################
 
 from sklearn.linear_model import LogisticRegression
+
+
 LogReg_classifier = LogisticRegression(multi_class='multinomial', solver ='newton-cg')
 LogReg_classifier
 LogReg_classifier.fit(X_train, y_train)
@@ -99,10 +164,6 @@ fig = px.bar(LogReg_odds_ratio_df, x='feature', y="LogReg_coefficients", orienta
 fig.show()
 
 
-import eli5
-from eli5.sklearn import PermutationImportance
-perm = PermutationImportance(LogReg_classifier, random_state=1).fit(X_train,y_train)
-eli5.show_weights(perm, feature_names = X.columns.tolist())
 
 ########################################
 ###      Bagging meta-estimator      ###
@@ -166,12 +227,114 @@ print(f"Testing Data Score: {DecTree_model_test_score}")
 ########################################
 
 from sklearn.ensemble import RandomForestClassifier
-RandFor_model = RandomForestClassifier(n_estimators=100)
+RandFor_model = RandomForestClassifier(n_estimators=50)
 RandFor_model.fit(X_train, y_train)
-RandFor_model.score(X_test, y_test)
 
 RandFor_model_train_score = RandFor_model.score(X_train, y_train)
 RandFor_model_test_score = RandFor_model.score(X_test, y_test)
+print(f"Training Data Score: {RandFor_model_train_score}")
+print(f"Testing Data Score: {RandFor_model_test_score}")
+
+#######################################
+###  OPTMIZING RANDOM FOREST MODEL  ###
+#######################################
+
+from sklearn.model_selection import StratifiedKFold
+from sklearn.naive_bayes import MultinomialNB
+
+from yellowbrick.model_selection import CVScores
+
+# Create a cross-validation strategy
+cv = StratifiedKFold(n_splits=12, random_state=42)
+
+# Instantiate the classification model and visualizer
+model = RandomForestClassifier(n_estimators=50)
+visualizer = CVScores(model, cv=cv, scoring='f1_weighted')
+
+visualizer.fit(X_resampled, y_resampled)        # Fit the data to the visualizer
+visualizer.show(outpath='plots/cross_validation.png', dpi=600)           # Finalize and render the figure
+
+
+from sklearn.feature_selection import RFECV
+rfc = RandomForestClassifier(random_state=100)
+rfecv = RFECV(estimator=rfc, step=1, cv=StratifiedKFold(10), scoring='accuracy')
+rfecv.fit(X_resampled, y_resampled)
+
+print('Optimal number of features: {}'.format(rfecv.n_features_))
+
+plt.figure(figsize=(16, 9))
+plt.title('Recursive Feature Elimination with Cross-Validation', fontsize=18, fontweight='bold', pad=20)
+plt.xlabel('Number of features selected', fontsize=14, labelpad=20)
+plt.ylabel('% Correct Classification', fontsize=14, labelpad=20)
+plt.plot(range(1, len(rfecv.grid_scores_) + 1), rfecv.grid_scores_, color='#303F9F', linewidth=3)
+plt.savefig('plots/RFECV.png', dpi=600)
+plt.show()
+
+
+print(np.where(rfecv.support_ == False)[0])
+
+X.drop(X.columns[np.where(rfecv.support_ == False)[0]], axis=1, inplace=True)
+X_resampled_selected = X.copy()
+X_resampled_selected.to_csv('X_resampled_selected.csv', index=False)
+
+
+dset = pd.DataFrame()
+dset['attr'] = X.columns
+dset['importance'] = rfecv.estimator_.feature_importances_
+
+dset = dset.sort_values(by='importance', ascending=False)
+dset.head(8)
+
+plt.figure(figsize=(16, 14))
+plt.barh(y=dset['attr'], width=dset['importance'], color='#1976D2')
+plt.title('RFECV - Feature Importances', fontsize=20, fontweight='bold', pad=20)
+plt.xlabel('Importance', fontsize=14, labelpad=20)
+plt.savefig('plots/important_features.png', dpi=600)
+plt.show()
+
+#################################################
+###  RUNNING MODELS ON OPTIMIZED FEATURE SET  ###
+#################################################
+
+X_optimal = only_productive_plays[dset.attr]
+X_optimal.head()
+y_optimal = only_productive_plays[['play_type']]
+y_optimal.head()
+
+
+X_optimal.shape
+y_optimal.shape
+
+X_optimal.head()
+y_optimal.head()
+
+
+# applying SMOTE to our data and checking the class counts
+X_optimal_resampled, y_optimal_resampled = SMOTE().fit_resample(X_optimal, y_optimal)
+X_optimal_resampled.shape
+y_optimal_resampled.shape
+
+# Saving training and testing datasets
+X_optimal.to_csv('optimized_data/X_optimal.csv', index=False)
+y_optimal.to_csv('optimized_data/y_optimal.csv', index=False)
+
+pt = PowerTransformer()
+pt.fit(X_optimal_resampled)
+X_optimal_resampled_transformed = pt.transform(X_optimal_resampled)
+print(sorted(Counter(y_resampled).items()))
+
+
+#Splitting dataset
+X_new_train, X_new_test, y_new_train, y_new_test = train_test_split(X_optimal_resampled_transformed, y_optimal_resampled, random_state=42)
+
+X_optimal_resampled
+
+
+RandFor = RandomForestClassifier(n_estimators=300, min_samples_split=4, class_weight='balanced')
+RandFor.fit(X_new_train, y_new_train)
+
+RandFor_model_train_score = RandFor.score(X_new_train, y_new_train)
+RandFor_model_test_score = RandFor.score(X_new_test, y_new_test)
 print(f"Training Data Score: {RandFor_model_train_score}")
 print(f"Testing Data Score: {RandFor_model_test_score}")
 
