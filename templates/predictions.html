@@ -13,31 +13,31 @@
     <script>
       $("input[type='number']").inputSpinner();
     </script>
-    <form action="/result" method="POST">
+    <form action="/predictions" method="POST">
       <div class="row">
         <div class="col-6">
           <h5 class="input">
             Weather conditions
           </h5>
           <input
-            id="weather1"
+            id="temp"
             type="number"
-            value="5"
+            value="60"
             min="0"
-            max="40"
+            max="100"
             step="1"
           />
-          <span class="badge badge-secondary">Snow</span><br />
+          <span class="badge badge-secondary">Temp</span><br />
           <input
-            id="weather2"
+            id="humidity"
             type="number"
             value="80"
             min="0"
             max="150"
             step="1"
           />
-          <span class="badge badge-secondary">Temp</span><br />
-          <input
+          <span class="badge badge-secondary">Humidity</span><br />
+          <!-- <input
             id="weather3"
             type="number"
             value="20"
@@ -45,7 +45,7 @@
             max="100"
             step="1"
           />
-          <span class="badge badge-secondary">Rain</span><br />
+          <span class="badge badge-secondary">Rain</span><br /> -->
 
           <h5 class="input">
             Time Left
@@ -56,7 +56,7 @@
             value="500"
             min="0"
             max="1800"
-            step="60"
+            step="1"
           />
           <span class="badge badge-secondary">Seconds left in Half</span><br />
           <input
@@ -65,7 +65,7 @@
             value="500"
             min="0"
             max="3600"
-            step="60"
+            step="1"
           />
           <span class="badge badge-secondary">Seconds left in Game</span><br />
         </div>
@@ -108,7 +108,7 @@
           <div class="container" .mt-5>
             <button
               id="submit-data-btn"
-              type="button"
+              type="submit"
               class="btn btn-primary btn-lg"
             >
               Submit
@@ -131,6 +131,7 @@
 </div>
 
 <script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="static/js/prediction.js"></script>
+<!-- <script src="static/js/prediction.js"></script> -->
+<script src="static/js/forms.js"></script>
 
 {% endblock %}
