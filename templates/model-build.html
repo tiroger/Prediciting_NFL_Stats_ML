@@ -134,7 +134,7 @@
     <!-- <h5>Before</h5> -->
     <div>
       <p>
-        Since there are four possible play outcomes, this boils down to a multi-class classification problem. Given a set of pre-existing game and weather conditions, what is the predicted play call. After cleaning and aggregating the data, we ran multiple algorithms, encompassing regression, ensemble and boosting models:
+        Since there are four possible play outcomes, this boils down to a multi-class classification problem. Given a set of pre-existing game and weather conditions, what is the predicted play call? After cleaning and aggregating the data, we scaled the features and ran multiple algorithms, encompassing regression, ensemble and boosting classifiers:
       </p>
       <ul>
         <li class="features" style="padding-bottom: 16px;">Logistic Regression</li>
@@ -161,22 +161,23 @@
   </div>
   <br>
   <div>
+    <h4>Model Diagnosis</h4>
     <p>
-      We found that the Random Forest classifer gave the best accuracy score (71.0%), followed closely by the Extra Tree classifier (70.3%). However, because of the imbalanced nature of our classes, accuracy score is not necessarily useful to evaluate the overall performance of the model (i.e. How well does the model recognize each class?). To get a better understanding of the model's performance, we also plotted the confusion matrix, which tells how well the models does for each class. The confusion matrix also gives us three important metrics, precision, recall and f1 score:</p>
+      We found that the Random Forest classifer gave the best accuracy score (71.0%), followed closely by the Extra Tree classifier (70.3%). However, because of the imbalanced nature of our classes, accuracy score is not necessarily useful to evaluate the overall performance of the model (i.e. How well does the model recognize each class?). To get a better understanding of the model's performance, we also plotted the confusion matrix, which tells how well the models does for each class. The confusion matrix also gives us three important metrics: precision, recall and F<sub>1</sub> score.</p>
       <div class="row">
       <div class="col-sm-7">
       <div>
       <ul>
          <li class="features" style="padding-bottom: 16px;"><b>Precision:</b> What proportion of <u>predicted</u> positives is truly positive? For example, the precision for the class "pass" is the number of correctly predicted pass plays out of all predicted pass plays.</li>
          <li class="features" style="padding-bottom: 16px;"><b>Recall:</b> What proportion of actual positives is correctly classified? For example, of the plays that are actually runs, how many were correctly classified as runs?</li>
-         <li class="features" style="padding-bottom: 16px;"><b>f1 score:</b> The harmonic mean of the precision and recall,</li>
+         <li class="features" style="padding-bottom: 16px;"><b>F<sub>1</sub> score:</b> The harmonic mean of the precision and recall.</li>
        </ul>
     </div>
-  </div>
+    </div>
     <div class="col-sm-5">
       <img src="/static/images/precision_recall.png" id='matrix' style="width:420px;height:322px;"/>
     </div>
-  </div>
+    </div>
 
   <script>
  window.onload = function() {
@@ -196,14 +197,14 @@
     <div class="col-sm-6">
       <div class='image-container'>
       <select id="itemImage" name="itemImage">
-        <option data-img="/static/images/forrest_cm_all_plays_percent.png">Confusion Matrix</option>
+        <option data-img="/static/images/forrest_cm_all_plays.png">Confusion Matrix</option>
         <option data-img="/static/images/forrest_pred_error_all_plays.png">Prediction Error</option>
         <option data-img="/static/images/forrest_all_plays.png">Classification Report</option>
         <!-- <option data-img="/static/images/forrest_ROCAUC_all_plays.png">AUCROC</option> -->
       </select>
     </div>
       <div>
-        <img src="/static/images/forrest_cm_all_plays_percent.png" id='changeImage' style="width:500px;height:371px;"/>
+        <img src="/static/images/forrest_cm_all_plays.png" id='changeImage' style="width:500px;height:371px;"/>
       </div>
     </div>
     <div class="col-sm-6">
@@ -211,12 +212,28 @@
         <br>
         <br>
       <p>
-        From the confusion matrix, we can see that the model performs extremely well in distinguishing the proper instances of punts and field goals.
+        From the confusion matrix, we can see that the model performs extremely well when it comes to classifying punts and field goals, with precision scores of 96% and 89%, respectively, which is the percentage of predicted punts and field goals that were actually such. Conversely, the recall score was 98% and 91%, respectively, indicating the percentages of actual punts and field goals that were actually correctly classified. This suggests that the model is good at handling both of these classes.
+      </p>
+      <p>
+        For pass plays the model's performance drops significantly, with precision and recall scores of 72% and 74%, respectively. This means that 72% of predicted pass plays were actually pass plays and 74% of actual pass plays were corretly classified. The Prediction Error Chart shows that ~25% of pass plays were classified as "runs".
       </p>
       </div>
     </div>
     </div>
+    </div>
+    <div>
+        <p>
+          As for runs, the models was able to correctly classify only 60% of run plays (recall). 62% of predicted runs were in fact run plays (precision), as the model struggled to differentiate from pass plays, as seen in the Prediction Error chart.
+        </p>
+    </div>
   </div>
+  <h4>Model Improvement</h4>
+  <div>
+    <p>
+      One of the potential issues in training our model, is class imbalance.
+    </p>
+  </div>
+
   <div class="line"></div>
 
 
