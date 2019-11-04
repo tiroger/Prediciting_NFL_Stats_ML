@@ -1,6 +1,14 @@
 # ignore all files starting with . or ~
-.*
+
 ~*
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Mac-specific files
+.DS_Store
+
+iframe_figures/
 
 # API keys
 api_keys.py
