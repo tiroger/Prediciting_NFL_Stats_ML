@@ -47,14 +47,13 @@
     <h5>Play Breakdown - All Plays</h5>
     <div>
     <iframe width="500px" height="500px" frameborder="0" scrolling="no" src="//plot.ly/~rogerlefort/4.embed?showlink=false"></iframe>
-</div>
+    </div>
   </div>
   <div class="col-sm-6">
     <h5>Play Breakdown - Pass, Run, FG, Punt</h5>
     <div>
     <iframe width="500px" height="500px" frameborder="0" scrolling="no" src="//plot.ly/~rogerlefort/113.embed?showlink=false"></iframe>
-</div>
-
+    </div>
   </div>
   </div>
 <br>
@@ -100,7 +99,10 @@
   </ul>
 
   <p>
-    To facilitate the exploratory data analysis phase, we used the extremely useful library, <a class= 'hyperlink' href='https://github.com/pandas-profiling/pandas-profiling'>pandas_profiling</a>. For each feature in our dataset, the following statistics - if relevant for the column type - were obtained --available in an interactive <a class='hyperlink' href='/feature-profile'>HTML report</a>:</p>
+    To facilitate the exploratory data analysis phase, we used the extremely useful library, <a class='subtle-hyperlink'
+      href='https://github.com/pandas-profiling/pandas-profiling'>pandas_profiling</a>. For each feature in our dataset,
+    the following statistics - if relevant for the column type - were <a class='hyperlink'
+      href='/feature-profile'>obtained</a>:</p>
 <ul>
   <li class="features" style="padding-bottom: 16px;"><b>Essentials</b>: type, unique values, missing values</li>
   <li class="features" style="padding-bottom: 16px;"><b>Quantile statistics</b> like minimum value, Q1, median, Q3, maximum, range, interquartile range</li>
@@ -169,7 +171,9 @@
       <div>
       <ul>
          <li class="features" style="padding-bottom: 16px;"><b>Precision:</b> What proportion of <u>predicted</u> positives is truly positive? For example, the precision for the class "pass" is the number of correctly predicted pass plays out of all predicted pass plays.</li>
-         <li class="features" style="padding-bottom: 16px;"><b>Recall:</b> What proportion of actual positives is correctly classified? For example, of the plays that are actually runs, how many were correctly classified as runs?</li>
+         <li class="features" style="padding-bottom: 16px;"><b>Recall:</b> What proportion of <u>actual</u> positives is
+           correctly classified? For example, of the plays that are actually runs, how many were correctly classified as
+           runs?</li>
          <li class="features" style="padding-bottom: 16px;"><b>F<sub>1</sub> score:</b> The harmonic mean of the precision and recall.</li>
        </ul>
     </div>
@@ -182,13 +186,33 @@
   <script>
  window.onload = function() {
      document.getElementById("itemImage").onchange = showFormatImage;
+     document.getElementById("itemImage2").onchange = showFormatImage2;
   };
  function showFormatImage() {
     var image = document.getElementById("changeImage");
     image.src = $('select[name=itemImage] option:selected').attr('data-img');
     return false;
- }
+  }
+
+  function showFormatImage2() {
+    var image = document.getElementById("changeImage2");
+    image.src = $('select[name=itemImage2] option:selected').attr('data-img2');
+    return false;
+  }
+
   </script>
+
+    <!-- <script>
+      window.onload = function () {
+        document.getElementById("itemImage2").onchange = showFormatImage2;
+      };
+
+      function showFormatImage2() {
+        var image = document.getElementById("changeImage2");
+        image.src = $('select[name=itemImage2] option:selected').attr('data-img2');
+        return false;
+      }
+    </script> -->
 
   <!-- <img src="/static/images/forrest_cm_all_plays_percent.svg" id='changeImage'style="width:600px;height:600px;"/> -->
 
@@ -214,12 +238,17 @@
       <p>
         From the confusion matrix, we can see that the model performs extremely well when it comes to classifying punts and field goals, with precision scores of 96% and 89%, respectively, which is the percentage of predicted punts and field goals that were actually such. Conversely, the recall score was 98% and 91%, respectively, indicating the percentages of actual punts and field goals that were actually correctly classified. This suggests that the model is good at handling both of these classes.
       </p>
-      <p>
+      <!-- <p>
         For pass plays the model's performance drops significantly, with precision and recall scores of 72% and 74%, respectively. This means that 72% of predicted pass plays were actually pass plays and 74% of actual pass plays were corretly classified. The Prediction Error Chart shows that ~25% of pass plays were classified as "runs".
-      </p>
+      </p> -->
       </div>
     </div>
     </div>
+    <p>
+      For pass plays the model's performance drops significantly, with precision and recall scores of 72% and 74%,
+      respectively. This means that 72% of predicted pass plays were actually pass plays and 74% of actual pass plays
+      were corretly classified. The Prediction Error Chart shows that ~25% of pass plays were classified as "runs".
+    </p>
     </div>
     <div>
         <p>
@@ -230,9 +259,49 @@
   <h4>Model Improvement</h4>
   <div>
     <p>
-      One of the potential issues in training our model, is class imbalance. To tackle this, we decided to generate synthetic data, using the <a href ='https://jair.org/index.php/jair/article/view/10302/24590' class=subtle-hyperlink>SMOTE (Synthetic Minority Over-sampling Technique) method</a>, which consists in creating new synthetic points from the minority class to increase its cardinality. It works by creating synthetic samples from the minor class instead of creating copies. The algorithm selects two or more similar instances (using a distance measure) and perturbing an instance one attribute at a time by a random amount within the difference to the neighboring instances.
+      One of the potential issues in training our model, is class imbalance. To tackle this, we decided to generate
+      synthetic data, using the <a href='https://jair.org/index.php/jair/article/view/10302/24590'
+        class=subtle-hyperlink>SMOTE (Synthetic Minority Over-sampling Technique)</a> method, which consists in creating
+      new synthetic points from the minority class to increase its cardinality. It works by creating synthetic samples
+      from the minor class instead of creating copies. The algorithm selects two or more similar instances (using a
+      distance measure) and perturbing an instance one attribute at a time by a random amount within the difference to
+      the neighboring instances.
     </p>
   </div>
+  <div class="row">
+    <div class="col-6">
+      <p>
+        Balancing the dataset before training significantly improved the model's overall accuracy to 83.6%. More importantly, we saw a significant improvement in performance for the "run" class, where precision and recall scores increased to 73.1% and 73.5%, respectively. We also saw a slight improvement in precision for the "pass" class (72.1% to 73.6%), but interestingly we saw a slight decrease in recall (74.1% to 72.3%). Both classes "punt" and "field_goals" classes showed improvement to almost perfect precision and recall.
+      </p>
+    </div>
+    <div class="col-6">
+            <div class='image-container2'>
+              <select id="itemImage2" name="itemImage2">
+                <option data-img2="/static/images/random_forest_accuracy_scores_after_resampling.png">RF Accuracy</option>
+                <option data-img2="/static/images/forrest_resampled_all_plays.png">Classification Report</option>
+                <option data-img2="/static/images/forrest_resampled_cm_all_plays.png">Confusion Matrix</option>
+                <option data-img2="/static/images/forrest_resampled_pred_error_all_plays.png">Prediction Error</option>
+                <!-- <option data-img="/static/images/forrest_ROCAUC_all_plays.png">AUCROC</option> -->
+              </select>
+            </div>
+      <img src="/static/images/random_forest_accuracy_scores_after_resampling.png"" id='changeImage2' style="
+        width:500px;height:371px;" />
+    </div>
+  </div>
+    <div class="row">
+      <div class="col-6">
+        <p>
+          MORE DESCRIPTION
+        </p>
+      </div>
+      <div class="col-6">
+        <iframe width="500" height="500" frameborder="0" scrolling="no"
+          src="//plot.ly/~rogerlefort/139.embed?showlink=false"></iframe>
+      </div>
+    </div>
+  <br>
+  <h4>Feature Importance</h4>
+
 
 
   <div class="line"></div>
@@ -249,10 +318,6 @@
 </p>
 
 
-<script type='text/javascript' src='https://prod-useast-a.online.tableau.com/javascripts/api/viz_v1.js'></script><div class='tableauPlaceholder' style='width: 1200px; height: 552px;'><object class='tableauViz' width='1200' height='552' style='display:none;'><param name='host_url' value='https%3A%2F%2Fprod-useast-a.online.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='&#47;t&#47;rogerlefort' /><param name='name' value='Featureimportace&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='showAppBanner' value='false' /><param name='filter' value='iframeSizedToWindow=true' /></object></div>
-
-
-
 <div class="line"></div>
 
 
@@ -260,44 +325,6 @@
 
   <div id="container">
 
-
-
-    <!-- <script>
-    var modelScores = ["Train Score", "Test Score"];
-    var url = "/scores";
-    var promise = d3.json(url);
-
-    // Getting data from table route
-    promise.then(function(data){
-      // console.log(data);
-
-    	// create the drop down menu of cities
-    	var selector = d3.select("body")
-    		.append("select")
-    		.attr("id", "model")
-    		.selectAll("option")
-    		.data(data)
-    		.enter().append("option")
-    		.text(function(d) { return d.model; })
-    		.attr("value", function (d, i) {
-    			return i;
-          console.log(d.model)
-    		});
-        // generate a random index value and set the selector to the city
-      // at that index value in the data array
-      var index = Math.round(Math.random() * data.length);
-      d3.select("#model").property("selectedIndex", index);
-
-      // append a paragraph tag to the body that shows the city name and it's population
-      d3.select("body")
-            .append("p")
-            .data(data)
-            .text(function(d){
-              return data[index]['train_score'];
-            })
-
-      });
-    </script> -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
   </div>
 
@@ -308,7 +335,7 @@
 </div>
 
 <!-- My Scripts -->
-<script src="{{ url_for('static', filename='js/barChart.js') }}"></script>
+<!-- <script src="{{ url_for('static', filename='js/barChart.js') }}"></script> -->
 <!-- D3 I HATE YOU! -->
 <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 {% endblock %}
