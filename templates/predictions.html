@@ -5,7 +5,13 @@
   crossorigin="anonymous"
 ></script>
 <div class="container">
-  <h2>Let's Play Head Coach</h2>
+  <h2>Monday Morning Quarterbacks</h2>
+  <p>
+    Machine learning models are most powerful when they are used to guide
+    decisions. Using models trained on a decade of NFL play calls we can predict
+    what plays should be called given the specific game conditions and the
+    current play status in real time.
+  </p>
 
   <div class="container" .mb-3>
     <script src="static/js/spinners.js"></script>
@@ -17,17 +23,9 @@
       <div class="row">
         <div class="col-6">
           <h5 class="input">
-            Weather conditions
+            Game Conditions
           </h5>
-          <input
-            id="temp"
-            type="number"
-            value="60"
-            min="0"
-            max="100"
-            step="1"
-          />
-          <span class="badge badge-secondary">Temp</span><br />
+
           <input
             id="humidity"
             type="number"
@@ -37,19 +35,7 @@
             step="1"
           />
           <span class="badge badge-secondary">Humidity</span><br />
-          <!-- <input
-            id="weather3"
-            type="number"
-            value="20"
-            min="0"
-            max="100"
-            step="1"
-          />
-          <span class="badge badge-secondary">Rain</span><br /> -->
 
-          <h5 class="input">
-            Time Left
-          </h5>
           <input
             id="secondsHalf"
             type="number"
@@ -71,7 +57,7 @@
         </div>
         <div class="col-6">
           <h5 class="input">
-            Enter the game conditions
+            Play conditions
           </h5>
 
           <input
@@ -111,7 +97,7 @@
               type="submit"
               class="btn btn-primary btn-lg"
             >
-              Submit
+              Predict
             </button>
           </div>
         </div>
@@ -121,10 +107,9 @@
 
   <div class="line"></div>
 
-  <h2 class="input">Predicted Play</h2>
-  <div id="predictionOutput">
-    <img id="output" />
-    <!-- <p>There are my {{ prediction }}</p> -->
+  <p id="textOutput"></p>
+  <div id="imageDiv">
+    <img id="imageOutput" />
   </div>
 
   <div class="line"></div>

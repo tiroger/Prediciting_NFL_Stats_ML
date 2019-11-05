@@ -16,32 +16,16 @@ app = Flask(__name__)
 
 
 def predictPlay(to_predict_list):
-    # to_predict = to_predict_list
-    to_predict = np.array(to_predict_list).reshape(1, 8)
-    # loaded_model = pickle.load(open(filename, 'rb'))
-    # result = loaded_model.score(X_test, Y_test)
-    # print(result)
-    print(to_predict)
-    testvalue = [[19.0, 3, 1.0, 10, 3.0, 3.0, 35, 74]]
-    print(testvalue)
+    # reshape to prep data for prediction
+    to_predict = np.array(to_predict_list).reshape(1, 7)
+    # scale input values to trained models
+    pt_scaler = joblib.load('resources/pt_scaler.sav')
+    to_predict_final = pt_scaler.transform(to_predict)
 
-    # loaded_model = pickle.load(open("model.pkl","rb"))
-    # result = loaded_model.predict(to_predict)
-    # return result[0]
-
-    # input = []
-    # for value in inputValue.values():
-    #     input.append(value)
-    #     input_df = pd.DataFrame(input)
-    #     input_df.rename(columns={0: 'input_value'}, inplace=True)
-    #     to_predict = input_df.transpose()  # or df1.transpose()
-    # loaded_model = joblib.load('resources/next_play_predictor_LogReg.pkl')
-    loaded_model = pickle.load(
-        open("resources/next_play_predictor_LogReg.pkl", "rb"))
-    # result = loaded_model.predict(to_predict)
-    result = loaded_model.predict(testvalue)
+    # load spedicified model for use and make prediction
+    loaded_model = joblib.load("resources/logreg_model.sav")  
+    result = loaded_model.predict(to_predict_final)
     return result
-
 
 @app.route("/")
 def index():
@@ -86,45 +70,30 @@ def model_scores():
 @app.route("/predictions", methods=["GET", "POST"])
 def make_predictions():
     """Returns prediction page"""
-    prediction = "pass"
+
+    return render_template("predictions.html")
+
+
+@app.route('/results', methods = ['GET','POST'])
+def result():
     if request.method == 'POST':
-        print("RECEIVED ROUTE REQUEST!!!!!!!")
         to_predict_list = request.form.to_dict()
         to_predict_list = list(to_predict_list.values())
         to_predict_list = list(map(int, to_predict_list))
 
-        print(to_predict_list)
-        formData = request.form.to_dict()
-        print(formData)
-
-        temp = int(request.form['temp'])
-        humidity = int(request.form['humidity'])
-        # temp = int(request.form['temp'])
-        # temp = int(request.form['temp'])
-        # temp = int(request.form['temp'])
-        # temp = int(request.form['temp'])
-        # temp = int(request.form['temp'])
-        # temp = int(request.form['temp'])
-
+        # call the function to make our prediction
         prediction = predictPlay(to_predict_list)
-        print(prediction)
 
-    return render_template("predictions.html", prediction=prediction)
-
-
-# @app.route('/result', methods = ['POST'])
-# def result():
-#     if request.method == 'POST':
-
-#         # any transforms
-#         modelValue = request.form.to_dict()
-#         modelValue = list(modelValue.values())
-#         modelValue = list(map(int, modelValue))
-
-#         prediction = predictPlay(modelValue)
-
-#         return render_template("predictions.html",prediction=prediction)
-
+        if prediction == "run":
+            result = "run"
+        elif prediction == "pass":
+            result = "pass"
+        elif prediction == "field_goal":
+            result = "field goal"
+        else:
+            result = "punt"
+        prediction = result.upper()
+        return jsonify(prediction)
 
 if __name__ == "__main__":
     app.run()
