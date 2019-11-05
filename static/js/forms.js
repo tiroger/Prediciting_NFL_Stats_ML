@@ -7,21 +7,21 @@ $(document).ready(function() {
 
     // get the form data
     // there are many ways to get this data using jQuery (you can use the class or id also)
-    var formData = {
-      temp: $("#temp").val(),
-      humidity: $("#humidity").val(),
+
+    let formData = {
+      yardline: $("#yardline").val(),
       secondsHalf: $("#secondsHalf").val(),
       secondsGame: $("#secondsGame").val(),
-      yardline: $("#yardline").val(),
       down: $("#down").val(),
       ydstogo: $("#ydstogo").val(),
-      scoreDif: $("#scoreDif").val()
+      scoreDif: $("#scoreDif").val(),
+      humidity: $("#humidity").val()
     };
 
     // process the form
     $.ajax({
       type: "POST", // define the type of HTTP verb we want to use (POST for our form)
-      url: "/predictions", // the url where we want to POST
+      url: "/results", // the url where we want to POST
       data: formData, // our data object
       dataType: "json", // what type of data do we expect back from the server
       encode: true
@@ -29,41 +29,20 @@ $(document).ready(function() {
       // using the done promise callback
       .done(function(data) {
         // log data to the console so we can see
-        console.log(data);
+        // console.log(data);
 
         // here we will handle errors and validation messages
         if (!data.success) {
-          // handle errors for name ---------------
-          if (data.errors.name) {
-            $("#name-group").addClass("has-error"); // add the error class to show red input
-            $("#name-group").append(
-              '<div class="help-block">' + data.errors.name + "</div>"
-            ); // add the actual error message under our input
-          }
-
-          // handle errors for email ---------------
-          if (data.errors.email) {
-            $("#email-group").addClass("has-error"); // add the error class to show red input
-            $("#email-group").append(
-              '<div class="help-block">' + data.errors.email + "</div>"
-            ); // add the actual error message under our input
-          }
-
-          // handle errors for superhero alias ---------------
-          if (data.errors.superheroAlias) {
-            $("#superhero-group").addClass("has-error"); // add the error class to show red input
-            $("#superhero-group").append(
-              '<div class="help-block">' + data.errors.superheroAlias + "</div>"
-            ); // add the actual error message under our input
-          }
-        } else {
-          // ALL GOOD! just show the success message!
-          $("form").append(
-            '<div class="alert alert-success">' + data.message + "</div>"
-          );
-
-          // usually after form submission, you'll want to redirect
-          // window.location = '/thank-you'; // redirect a user to another page
+          document.getElementById(
+            "textOutput"
+          ).innerHTML = `Based on these game and play conditions you should ${data}`;
+          if (data === "RUN")
+            $("#imageOutput").attr("src", "static/images/run.gif");
+          else if (data === "PASS")
+            $("#imageOutput").attr("src", "static/images/pass.gif");
+          else if (data === "FIELD GOAL")
+            $("#imageOutput").attr("src", "static/images/field_goal.gif");
+          else $("#imageOutput").attr("src", "static/images/punt.gif");
         }
       })
 
@@ -71,7 +50,7 @@ $(document).ready(function() {
       .fail(function(data) {
         // show any errors
         // best to remove for production
-        console.log(data);
+        // console.log(data);
       });
 
     // stop the form from submitting the normal way and refreshing the page
