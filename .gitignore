@@ -23,6 +23,8 @@ api_keys.py
 
 #sav
 *.sav
+!pt_scaler.sav
+!logreg_model.sav
 
 # ignore raw data csv file
 NFL_Play_by_Play_2009_2018.csv.zip
