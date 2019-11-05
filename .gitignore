@@ -1,6 +1,7 @@
 # ignore all files starting with . or ~
 
 ~*
+.~Visualizations__85174.twbr
 
 # Large CSVs
 NFL_Play_by_Play_2009_2018.csv

@@ -324,8 +324,17 @@
   <br>
   <h4>Feature Importance</h4>
     <p>
-      We further improve on the model using the Recursive Feature Elimination (RFE) method with cross validation (CV) on the balanced dataset. RFECV works by
-      recursively removing attributes and building a model on those attributes that remain. It uses the model accuracy to identify which attributes (and combination of attributes) contribute the most to predicting the target attribute.
+      Bagged decision trees like Random Forest and Extra Trees can be used to estimate the importance of features. We
+      further improve on the model using the Recursive Feature Elimination (RFE) method with cross validation (CV) on
+      the balanced dataset. RFECV works by recursively removing attributes and building a model on those attributes that remain. It uses the model accuracy to identify which attributes (and combination of attributes) contribute the most to predicting the target attribute.
+    </p>
+
+    <p>
+      After fitting, RFECV exposes an attribute grid_scores_ which returns a list of accuracy scores for each of the
+      features selected. We can use that to plot a graph to see the number of features which gives the maximum accuracy for
+      the given model. By looking at the plot we can see that inputting 7 features to the model gives the best accuracy
+      score. RFECV also exposes support_, which is another attribute to find out the features which contribute the most to
+      predicting. The final random forest classifier model was built using the features below:
     </p>
     <div class="row">
       <div class="col-sm-6">
@@ -340,34 +349,20 @@
       </div>
     </div>
 
-
   <!-- <div class="line"></div> -->
-
-
   <!-- <div class="dropdown"></div>
   <div id="dropdown-viz"></div> -->
 
-<!-- <div class="line"></div>
-
-<h3>Assessing Team Predictability</h3>
+<!-- <h3>Assessing Team Predictability</h3>
 <p>
   BLABLABLA
-</p>
+</p> -->
 
 
-<div class="line"></div> -->
-
-
-
-
+<!-- <div class="line"></div> -->
   <div id="container">
-
     <script src="https://d3js.org/d3.v5.min.js"></script>
   </div>
-
-  <div class="line"></div>
-
-
 
 </div>
 
