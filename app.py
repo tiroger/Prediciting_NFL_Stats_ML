@@ -61,10 +61,10 @@ def show_visualizations():
     return render_template("visualizations.html")
 
 
-@app.route("/demoday")
-def demo_day():
+@app.route("/feature-profile")
+def feature_profile():
     """Returns the model building page"""
-    return render_template("demoday.html")
+    return render_template("feature_profile.html")
 
 
 @app.route("/model-build")

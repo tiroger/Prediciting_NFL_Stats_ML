@@ -2,6 +2,11 @@
 
 ~*
 
+# Large CSVs
+NFL_Play_by_Play_2009_2018.csv
+resources/drive_outcome_data_weather.csv
+resources/final_play_by_data_with_weather.csv
+
 # Notebook checkpoints
 .ipynb_checkpoints/
 
