@@ -46,14 +46,15 @@
   <div class="col-sm-6">
     <h5>Play Breakdown - All Plays</h5>
     <div>
-    <iframe width="500px" height="500px" frameborder="0" scrolling="no" src="//plot.ly/~rogerlefort/4.embed?showlink=false"></iframe>
+    <iframe width="500px" height="500px" frameborder="0" scrolling="no"
+      src="//plot.ly/~rogerlefort/110.embed?showlink=false"></iframe>
     </div>
   </div>
   <div class="col-sm-6">
-    <h5>Play Breakdown - Pass, Run, FG, Punt</h5>
-    <div>
+    <!-- <h5>Play Breakdown - Pass, Run, FG, Punt</h5> -->
+    <!-- <div>
     <iframe width="500px" height="500px" frameborder="0" scrolling="no" src="//plot.ly/~rogerlefort/113.embed?showlink=false"></iframe>
-    </div>
+    </div> -->
   </div>
   </div>
 <br>
@@ -111,13 +112,14 @@
   <li class="features" style="padding-bottom: 16px;"><b>Histogram</b></li>
   <li class="features" style="padding-bottom: 16px;"><b>Correlations</b> highlighting of highly correlated variables, Spearman and Pearson matrixes</li>
 </ul>
-<p>None of the features we intuitively selected showed any significant correlation. However, a number of features include several outliers, especially the score differential. We can verify that these extreme values are from actual games, and not entry errors. For example, the largest score differential (59 points) was from an <a href='https://www.espn.com/nfl/game?gameId=291018017' class='subtle-hyperlink'>October 19th, 2009 game</a> between the New Englan Patriots and the Tennessee Titans, which ended with a score of 59-0 in favor of the Patriots. Interestingly, the largest distance-to-go value (50) occured on a 3rd and 50 situation, in a game between the Washington Redskins and the Cincinnati Bengals on <a href='https://www.espn.com/nfl/playbyplay?gameId=320923028' class='subtle-hyperlink'>September 23rd, 2012.</a></p>
+<p>None of the features we intuitively selected showed any significant correlation, except for half_game_remaining and qtr. However, a number of features include several outliers, especially the score differential. We can verify that these extreme values are from actual games, and not entry errors. For example, the largest score differential (59 points) was from an <a href='https://www.espn.com/nfl/game?gameId=291018017' class='subtle-hyperlink'>October 19th, 2009 game</a> between the New Englan Patriots and the Tennessee Titans, which ended with a score of 59-0 in favor of the Patriots. Interestingly, the largest distance-to-go value (50) occured on a 3rd and 50 situation, in a game between the Washington Redskins and the Cincinnati Bengals on <a href='https://www.espn.com/nfl/playbyplay?gameId=320923028' class='subtle-hyperlink'>September 23rd, 2012.</a></p>
 <div>
   <div class="row">
   <div class="col-sm-6">
     <h5>Correlation Matrix</h5>
     <div>
-      <img src='/static/images/correlation_matrix.png' alt="correlation matrix" style="width:500px;height:500px;"/>
+      <iframe width="500" height="500" frameborder="0" scrolling="no"
+        src="//plot.ly/~rogerlefort/150.embed?showlink=false"></iframe>
     </div>
   </div>
   <div class="col-sm-6">
@@ -267,50 +269,85 @@
       distance measure) and perturbing an instance one attribute at a time by a random amount within the difference to
       the neighboring instances.
     </p>
+    <div class="row">
+      <div class="col-6">
+          <p>
+            Balancing the classes before training significantly improved the model's overall accuracy, from 71% to 86.3%. More
+            importantly, we saw a significant improvement in performance for the "run" class. As seen in the classification report, precision and recall
+            scores increased to 73.1% and 73.5%, respectively. We also saw a slight improvement in precision for the "pass" class (72.1% to 73.6%), but interestingly at the expense of recall, which decreased slightly from 74.1% to 72.3%. Both precision and recall scores for
+            "punt" and "field_goal" classes also showed improvements to almost perfect scores. 
+          </p>
+      </div>
+            <div class="col-6">
+              <h5> Random Forest Accuracy Score - Before and After Resampling</h5>
+              <iframe width="500" height="300" frameborder="0" scrolling="no"
+                src="//plot.ly/~rogerlefort/137.embed?showlink=false"></iframe>
+            </div>
+    </div>
   </div>
   <div class="row">
     <div class="col-6">
-      <p>
-        Balancing the dataset before training significantly improved the model's overall accuracy to 83.6%. More importantly, we saw a significant improvement in performance for the "run" class, where precision and recall scores increased to 73.1% and 73.5%, respectively. We also saw a slight improvement in precision for the "pass" class (72.1% to 73.6%), but interestingly we saw a slight decrease in recall (74.1% to 72.3%). Both classes "punt" and "field_goals" classes showed improvement to almost perfect precision and recall.
-      </p>
+                  <div class='image-container2'>
+                    <select id="itemImage2" name="itemImage2">
+                      <!-- <option data-img2="/static/images/random_forest_accuracy_scores_after_resampling.png">RF Accuracy
+                      </option> -->
+                      <option data-img2="/static/images/forrest_resampled_all_plays.png">Classification Report</option>
+                      <option data-img2="/static/images/forrest_resampled_cm_all_plays.png">Confusion Matrix</option>
+                      <option data-img2="/static/images/forrest_resampled_pred_error_all_plays.png">Prediction Error
+                      </option>
+                      <!-- <option data-img="/static/images/forrest_ROCAUC_all_plays.png">AUCROC</option> -->
+                    </select>
+                  </div>
+                  <br>
+                  <br>
+                  <img
+                    src="/static/images/forrest_resampled_all_plays.png" id='changeImage2' style="
+                    width:500px;height:371px;" />
     </div>
     <div class="col-6">
-            <div class='image-container2'>
-              <select id="itemImage2" name="itemImage2">
-                <option data-img2="/static/images/random_forest_accuracy_scores_after_resampling.png">RF Accuracy</option>
-                <option data-img2="/static/images/forrest_resampled_all_plays.png">Classification Report</option>
-                <option data-img2="/static/images/forrest_resampled_cm_all_plays.png">Confusion Matrix</option>
-                <option data-img2="/static/images/forrest_resampled_pred_error_all_plays.png">Prediction Error</option>
-                <!-- <option data-img="/static/images/forrest_ROCAUC_all_plays.png">AUCROC</option> -->
-              </select>
-            </div>
-      <img src="/static/images/random_forest_accuracy_scores_after_resampling.png"" id='changeImage2' style="
-        width:500px;height:371px;" />
+        <iframe width="500" height="500" frameborder="0" scrolling="no"
+          src="//plot.ly/~rogerlefort/139.embed?showlink=false"></iframe>
     </div>
   </div>
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-6">
         <p>
-          MORE DESCRIPTION
+          Column 1
         </p>
       </div>
       <div class="col-6">
-        <iframe width="500" height="500" frameborder="0" scrolling="no"
-          src="//plot.ly/~rogerlefort/139.embed?showlink=false"></iframe>
+        <p>
+          Column 2
+        </p>
       </div>
-    </div>
+    </div> -->
   <br>
   <h4>Feature Importance</h4>
+    <p>
+      We further improve on the model using the Recursive Feature Elimination (RFE) method with cross validation (CV) on the balanced dataset. RFECV works by
+      recursively removing attributes and building a model on those attributes that remain. It uses the model accuracy to identify which attributes (and combination of attributes) contribute the most to predicting the target attribute.
+    </p>
+    <div class="row">
+      <div class="col-sm-6">
+        <h5> Recursive Feature Elimination w/ Cross Validation</h5>
+        <iframe width="500px" height="500px" frameborder="0" scrolling="no"
+          src="//plot.ly/~rogerlefort/115.embed?showlink=false"></iframe>
+      </div>
+      <div class="col-sm-6">
+        <h5> Feature Importance</h5>
+        <iframe width="500px" height="500px" frameborder="0" scrolling="no"
+          src="//plot.ly/~rogerlefort/117.embed?showlink=false"></iframe>
+      </div>
+    </div>
 
 
-
-  <div class="line"></div>
+  <!-- <div class="line"></div> -->
 
 
   <!-- <div class="dropdown"></div>
   <div id="dropdown-viz"></div> -->
 
-<div class="line"></div>
+<!-- <div class="line"></div>
 
 <h3>Assessing Team Predictability</h3>
 <p>
@@ -318,7 +355,7 @@
 </p>
 
 
-<div class="line"></div>
+<div class="line"></div> -->
 
 
 
