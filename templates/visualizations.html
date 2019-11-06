@@ -1,107 +1,79 @@
 {% extends "layout.html" %} {% block content %}
 <div id="visualizations" class="container">
   <h2>NFL Play-by-Play Data 2009-2018</h2>
-  <h4>32 teams, 10 seasons, 2,526 games, 449,371 plays!</h4>
-
-  <div class="tableauPlaceholder" style="width: 1200px; height: 607px;">
-    <object
-      class="tableauViz"
-      width="1200px"
-      height="607px"
-      style="display:none;"
-      ><param
-        name="host_url"
-        value="https%3A%2F%2Fprod-useast-a.online.tableau.com%2F"/>
-      <param name="embed_code_version" value="3"/>
-      <param name="site_root" value="&#47;t&#47;rogerlefort"/><param
-        name="name"
-        value="Visualizations&#47;CountofPlayType"/><param
-        name="tabs"
-        value="no"/><param name="toolbar" value="yes"/><param
-        name="showAppBanner"
-        value="false"/><param name="filter" value="iframeSizedToWindow=true"
-    /></object>
+  <br>
+  <!-- <h3>32 teams</h3>
+  <br> -->
+  <div>
+    <img class="img-fluid" src="./static/images/nfl_team_logos.jpg">
   </div>
-
-  <div class="line"></div>
-
-  <div class="tableauPlaceholder" style="width: 1200; height: 607px;">
-    <object class="tableauViz" width="1200" height="607" style="display:none;"
-      ><param
-        name="host_url"
-        value="https%3A%2F%2Fprod-useast-a.online.tableau.com%2F"/>
-      <param name="embed_code_version" value="3"/>
-      <param name="site_root" value="&#47;t&#47;rogerlefort"/><param
-        name="name"
-        value="Visualizations&#47;BreakdownofOffensivePlays"/><param
-        name="tabs"
-        value="no"/><param name="toolbar" value="yes"/><param
-        name="showAppBanner"
-        value="false"/><param name="filter" value="iframeSizedToWindow=true"
-    /></object>
+  <br>
+  <div class="row">
+    <div class="col-6">
+      <img class="img-fluid" src="./static/images/matchup.jpg" style="width:100%;height:auto;">
+    </div>
+    <div class="col-6">
+      <img class="img-fluid" src="./static/images/plays.gif" style="width:100%;height:auto;">
+      <div class='tableauPlaceholder' id='viz1573052751776' style='position: relative'><noscript><a href='#'><img
+              alt=' '
+              src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;NF&#47;NFLData_15730201347990&#47;PlayTypeCounts&#47;1_rss.png'
+              style='border: none' /></a></noscript><object class='tableauViz' style='display:none;'>
+          <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+          <param name='embed_code_version' value='3' />
+          <param name='site_root' value='' />
+          <param name='name' value='NFLData_15730201347990&#47;PlayTypeCounts' />
+          <param name='tabs' value='no' />
+          <param name='toolbar' value='yes' />
+          <param name='static_image'
+            value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;NF&#47;NFLData_15730201347990&#47;PlayTypeCounts&#47;1.png' />
+          <param name='animate_transition' value='yes' />
+          <param name='display_static_image' value='yes' />
+          <param name='display_spinner' value='yes' />
+          <param name='display_overlay' value='yes' />
+          <param name='display_count' value='yes' /></object></div>
+      <script type='text/javascript'>
+        var divElement = document.getElementById('viz1573052751776');
+        var vizElement = divElement.getElementsByTagName('object')[0];
+        vizElement.style.width = '100%';
+        vizElement.style.height = (divElement.offsetWidth * 0.75) + 'px';
+        var scriptElement = document.createElement('script');
+        scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+        vizElement.parentNode.insertBefore(scriptElement, vizElement);
+      </script>
+    </div>
   </div>
-
-  <div class="line"></div>
-
-  <h4>NFL coaches are remarkably predictable in their play calling!</h4>
-
-  <div class="tableauPlaceholder" style="width: 1200px; height: 607px;">
-    <object
-      class="tableauViz"
-      width="1200px"
-      height="607px"
-      style="display:none;"
-      ><param
-        name="host_url"
-        value="https%3A%2F%2Fprod-useast-a.online.tableau.com%2F"/>
-      <param name="embed_code_version" value="3"/>
-      <param name="site_root" value="&#47;t&#47;rogerlefort"/><param
-        name="name"
-        value="Visualizations&#47;PassBreakdown"/><param
-        name="tabs"
-        value="no"/><param name="toolbar" value="yes"/><param
-        name="showAppBanner"
-        value="false"/><param name="filter" value="iframeSizedToWindow=true"
-    /></object>
+<br>
+  <div>
+    <div class='tableauPlaceholder' id='viz1573055166651' style='position: relative'><noscript><a href='#'><img alt=' '
+            src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;6H&#47;6HJC8CZNR&#47;1_rss.png'
+            style='border: none' /></a></noscript><object class='tableauViz' style='display:none;'>
+        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+        <param name='embed_code_version' value='3' />
+        <param name='path' value='shared&#47;6HJC8CZNR' />
+        <param name='toolbar' value='yes' />
+        <param name='static_image'
+          value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;6H&#47;6HJC8CZNR&#47;1.png' />
+        <param name='animate_transition' value='yes' />
+        <param name='display_static_image' value='yes' />
+        <param name='display_spinner' value='yes' />
+        <param name='display_overlay' value='yes' />
+        <param name='display_count' value='yes' />
+        <param name='filter' value='publish=yes' /></object></div>
+    <script type='text/javascript'>
+      var divElement = document.getElementById('viz1573055166651');
+      var vizElement = divElement.getElementsByTagName('object')[0];
+      vizElement.style.width = '1016px';
+      vizElement.style.height = '991px';
+      var scriptElement = document.createElement('script');
+      scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+      vizElement.parentNode.insertBefore(scriptElement, vizElement);
+    </script>
   </div>
+  <!-- <div class="line"></div> -->
 
-  <div class="tableauPlaceholder" style="width: 1200; height: 607;">
-    <object class="tableauViz" width="1200" height="607" style="display:none;"
-      ><param
-        name="host_url"
-        value="https%3A%2F%2Fprod-useast-a.online.tableau.com%2F"/>
-      <param name="embed_code_version" value="3"/>
-      <param name="site_root" value="&#47;t&#47;rogerlefort"/><param
-        name="name"
-        value="Visualizations&#47;RunBreakdown"/><param
-        name="tabs"
-        value="no"/><param name="toolbar" value="yes"/><param
-        name="showAppBanner"
-        value="false"/><param name="filter" value="iframeSizedToWindow=true"
-    /></object>
-  </div>
 
-  <div class="line"></div>
 
-  <div class="tableauPlaceholder" style="width: 1200px; height: 607px;">
-    <object
-      class="tableauViz"
-      width="1200px"
-      height="607px"
-      style="display:none;"
-      ><param
-        name="host_url"
-        value="https%3A%2F%2Fprod-useast-a.online.tableau.com%2F"/>
-      <param name="embed_code_version" value="3"/>
-      <param name="site_root" value="&#47;t&#47;rogerlefort"/><param
-        name="name"
-        value="Visualizations&#47;PassRunHisto"/><param
-        name="tabs"
-        value="no"/><param name="toolbar" value="yes"/><param
-        name="showAppBanner"
-        value="false"/><param name="filter" value="iframeSizedToWindow=true"
-    /></object>
-  </div>
+
 
   <!-- Tableau scripts for visualizations -->
   <script

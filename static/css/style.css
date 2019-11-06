@@ -414,3 +414,43 @@ input::-webkit-inner-spin-button {
   visibility: visible;
   opacity: 1;
 }
+
+.rotate {
+
+  margin-top: 150px;
+
+  transform: rotate(-90deg);
+
+
+  /* Legacy vendor prefixes that you probably don't need... */
+
+  /* Safari */
+  -webkit-transform: rotate(-90deg);
+
+  /* Firefox */
+  -moz-transform: rotate(-90deg);
+
+  /* IE */
+  -ms-transform: rotate(-90deg);
+
+  /* Opera */
+  -o-transform: rotate(-90deg);
+
+  /* Internet Explorer */
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+
+}
+
+.inner {
+  position: absolute;
+  /* top: 50%;
+  left: 50%; */
+}
+
+/* .rotate {
+  transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+} */
+
+#credit {
+  font-size: 12px;
+}

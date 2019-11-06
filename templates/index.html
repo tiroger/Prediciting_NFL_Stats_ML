@@ -1,8 +1,19 @@
 {% extends "layout.html" %} {% block content %}
 <div class="home">
-  <h2>Introduction</h2>
+  <h2>A Rookie's Guide to the NFL</h2>
+
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe
+    src="https://player.vimeo.com/video/134596622?title=0&byline=0&portrait=0"
+    style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen"
+    allowfullscreen></iframe></div>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<p id="credit"><i>Credit: Cub Studio</i></p>
+
+  <div class="line"></div>
+
+  <h2>Background</h2>
   <p>
-    In the National Football League (NFL), being able to accurately predict
+    In the NFL, being able to accurately predict
     which play your oppent will call given a set of circumstances would be an
     invaluable tool, and teams devote many resources towards gaining insights
     into an opponent’s tendencies on the field. One area of immense interest is
@@ -20,35 +31,41 @@
 
   <div class="line"></div>
 
-  <h2>Background</h2>
-  <div id="container">
-    <img
-      src="https://www.sportsbookadvisor.com/wp-content/uploads/2016/12/1-14.jpg"
-      alt="nfl snow"
-      style="float: right; width:600px;height:400px;"
-    />
+  <h2>Earlier Work</h2>
+
     <p>
       Much of the work on this topic stems from operations research and
       economics communities as researchers sought ways to determine optimal
       play-calling strategies through the frameworks of game theory and decision
-      analysis. This line of inquiry was formally introduced in 1978 by Carter
-      and Machol[1] in their seminal paper outlining optimal fourth-down
-      strategies. These studies were later extended by Boronico and Newbert[2]
-      to include goal-line situations and ultimately all plays by Jordan, et
-      al.[3]. We sought to further extend on this topic by including an
+      analysis. This line of inquiry was formally introduced in 1978 by <a
+        href="https://pubsonline.informs.org/doi/pdf/10.1287/mnsc.24.16.1758" class="subtle-hyperlink">Carter
+      and Machol</a> in their seminal paper outlining optimal fourth-down
+      strategies. These studies were later extended by <a
+        href="https://www.researchgate.net/publication/233370516_An_empirically_driven_mathematical_modelling_analysis_for_play_calling_strategy_in_American_football" class="subtle-hyperlink">
+        Boronico and Newbert</a> in 2001
+      to include goal-line situations, and ultimately all plays by <a
+        href="https://www.researchgate.net/publication/46554851_Optimizing_Football_Game_Play_Calling" class="subtle-hyperlink">Jordan, et
+      al.</a> in 2008. We sought to further extend on this topic by including an
       important factor in decision-making in sports, specifically outdoor
-      sports, namaly weather.
+      sports, namely weather.
     </p>
   </div>
 
+  <div class="line"></div>
+
+  <div id="container">
+    <h2>Weather and Football</h2>
+    <img class="img-fluid" src="https://www.sportsbookadvisor.com/wp-content/uploads/2016/12/1-14.jpg" alt="nfl snow"
+      style="float: right; width:100%;height:auto;"/>
   <p>
-    Indeed, weather can significantly influence how a coach will call a play:
+    Weather can significantly influence how a coach will call a play:
     Downfield passing and receiving plays are the most affected by the weather
     conditions. Heavy rains can cause visibility issues for both the quarterback
     and the receiver, affect grip resulting in players fumbling the ball when
-    attempting to receive a pass in rain. Strong winds can alter ball
+    attempting to receive a pass in rain. Extreme cold can have a marked effect on the two essential components of any
+    NFL game: the players and the football. Strong winds can alter ball
     trajectory, resulting in more interceptions. Because running back are the
-    most "waterproof" players, offense can ofter continue to run the ball when
+    most "waterproof" players, the offense can often continue to run the ball when
     passing plays are compromised by conditions.
   </p>
 
