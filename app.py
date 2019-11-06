@@ -23,9 +23,10 @@ def predictPlay(to_predict_list):
     to_predict_final = pt_scaler.transform(to_predict)
 
     # load spedicified model for use and make prediction
-    loaded_model = joblib.load("resources/logreg_model.sav")  
+    loaded_model = joblib.load("resources/logreg_model.sav")
     result = loaded_model.predict(to_predict_final)
     return result
+
 
 @app.route("/")
 def index():
@@ -48,7 +49,9 @@ def show_visualizations():
 @app.route("/feature-profile")
 def feature_profile():
     """Returns the model building page"""
-    return render_template("feature_profile.html")
+    # return render_template("feature_profile.html")
+    # Below is test for rendering a page with layout
+    return render_template("feature_prof.html")
 
 
 @app.route("/model-build")
@@ -74,7 +77,7 @@ def make_predictions():
     return render_template("predictions.html")
 
 
-@app.route('/results', methods = ['GET','POST'])
+@app.route('/results', methods=['GET', 'POST'])
 def result():
     if request.method == 'POST':
         to_predict_list = request.form.to_dict()
@@ -94,6 +97,7 @@ def result():
             result = "punt"
         prediction = result.upper()
         return jsonify(prediction)
+
 
 if __name__ == "__main__":
     app.run()
