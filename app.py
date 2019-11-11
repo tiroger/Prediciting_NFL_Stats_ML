@@ -1,15 +1,12 @@
 
 
 import os
-from sklearn.externals import joblib
+import joblib
 import pandas as pd
 import numpy as np
 import pickle
 
 from flask import Flask, jsonify, render_template, request
-# from flask_sqlalchemy import SQLAlchemy
-
-# To Return json of scores
 import json
 
 app = Flask(__name__)
@@ -23,7 +20,8 @@ def predictPlay(to_predict_list):
     to_predict_final = pt_scaler.transform(to_predict)
 
     # load spedicified model for use and make prediction
-    loaded_model = joblib.load("resources/logreg_model.sav")
+    # loaded_model = joblib.load("resources/logreg_model.sav")
+    loaded_model = joblib.load("resources/XGBoost_model.sav")
     result = loaded_model.predict(to_predict_final)
     return result
 
@@ -50,7 +48,6 @@ def show_visualizations():
 def feature_profile():
     """Returns the model building page"""
     # return render_template("feature_profile.html")
-    # Below is test for rendering a page with layout
     return render_template("feature_prof.html")
 
 
