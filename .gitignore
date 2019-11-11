@@ -22,6 +22,9 @@ api_keys.py
 # ML models
 *.pkl
 
+# Pages files
+*.pages
+
 #sav
 *.sav
 !pt_scaler.sav
