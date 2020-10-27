@@ -14,7 +14,7 @@ chardet==3.0.4
 chart-studio==1.0.0
 Click==7.0
 confuse==1.0.0
-cryptography==2.7
+cryptography==3.2
 cycler==0.10.0
 decorator==4.4.0
 defusedxml==0.6.0
